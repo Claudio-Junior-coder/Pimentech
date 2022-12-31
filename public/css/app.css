@@ -1,0 +1,79 @@
+
+@media only screen and (max-width: 600px)  {
+    .sbr-big-screen {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .top-internal-head {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 15px;
+        justify-items: center;
+    }
+
+    .table-responsive input[type=search],
+    .dataTables_filter label {
+        width: 100% !important;
+    }
+
+    .dataTables_filter {
+        width: 100% !important;
+    }
+
+    .cart-table thead {
+        display: none;
+    }
+
+
+    .cart-table tbody td{
+        display: flex; flex-direction: column;
+    }
+
+}
+
+
+.table-head {
+    background-color: #0A75D9;
+    color: #FFFFFF;
+}
+
+.dataTables_paginate  .current{
+    border-radius: 100% !important;
+    background-color: #0A75D9 !important;
+    border-color: #FFFFFF !important;
+}
+
+
+.dataTables_paginate  span {
+    color: #FFFFFF !important;
+}
+
+.table-responsive input,
+.table-responsive select {
+    outline: none !important;
+}
+
+.table-responsive select {
+    margin: 0 5px 0 5px !important;
+}
+
+.dataTables_filter {
+    width: 50%;
+}
+
+
+.table-responsive input[type=search],
+.dataTables_filter label {
+    width: 80%;
+    margin: 0 0 5px 0 !important;
+    padding: 10px;
+}
+
+#products-tb,
+#providers-tb,
+#users-tb {
+    margin-bottom: 15px;
+}
