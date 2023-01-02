@@ -75,7 +75,8 @@
                                     <input type="text" name="quantity" class="form-control" id="quantity"
                                         placeholder="Quantidade" value="{{ $data['quantity'] }}">
                                 </div>
-                                <!--  <div class="form-group col-md-4">
+                                @if(!PROVIDERS_MODULE)
+                                                      <!--  <div class="form-group col-md-4">
                                         <label for="price">Valor</label>
                                         <input type="text" name="price" class="form-control" id="price" placeholder="Valor (unit.)" value="{{ $data['price'] }}" disabled>
                                     </div> -->
@@ -113,7 +114,7 @@
                                     @push('js')
                                     <script>
                                         setTimeout(function () {
-                                            addNewSbr({!! json_encode($sb)!!});
+                                            addNewSbr({!! json_git merencode($sb)!!});
                                                     }, 1000)
 
                                         $("#save-product").click(function () {
@@ -128,10 +129,3 @@
                     </div>
                 </div>
 
-                <x-modal-to-delete-product />
-            </div>
-        </div>
-    </div>
-</div>
-
-@stop
