@@ -144,7 +144,7 @@ function addNewSbr(data) {
                     <div class="input-group-prepend">
                         <span class="input-group-text">R$</span>
                     </div>
-                    <input data-id="`+ data.id + `" data-name="provider_price" type="text" name="provider_price-` + data.id + `" onkeypress="$(this).mask('#.##0,00', {reverse: true});" class="calculate-cost-price  form-control edit-sbr" placeholder="Valor (unit.)" value="` + data.provider_price + `">
+                    <input data-id="`+ data.id + `" data-name="provider_price" type="tel" name="provider_price-` + data.id + `" onkeypress="$(this).mask('#.##0,00', {reverse: true});" class="calculate-cost-price  form-control edit-sbr" placeholder="Valor (unit.)" value="` + data.provider_price + `">
                 </div>
             </div>
             <div class="form-group col">
