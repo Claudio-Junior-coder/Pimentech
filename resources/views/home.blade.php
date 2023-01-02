@@ -47,6 +47,7 @@ $isUserAdmin = auth()->user()->type;
         </div>
     </div>
 
+    @if(PROVIDERS_MODULE)
     <div class="col-lg-3 col-6">
 
         <div class="small-box bg-warning p-4">
@@ -62,6 +63,7 @@ $isUserAdmin = auth()->user()->type;
             </a>
         </div>
     </div>
+    @endif
 
     @if($isUserAdmin == 1)
 

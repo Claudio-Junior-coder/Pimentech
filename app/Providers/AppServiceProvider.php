@@ -54,13 +54,15 @@ class AppServiceProvider extends ServiceProvider
                 'label'       => Products::where('draft', 0)->count(),
                 'label_color' => 'info',
             ]);
-            $event->menu->add([
-                'text'        => 'Fornecedores',
-                'url'         => 'providers-info',
-                'icon'        => 'fa fa-shopping-basket',
-                'label'       => ProviderInfo::where('draft', 0)->count(),
-                'label_color' => 'info',
-            ]);
+            if(PROVIDERS_MODULE) {
+                $event->menu->add([
+                    'text'        => 'Fornecedores',
+                    'url'         => 'providers-info',
+                    'icon'        => 'fa fa-shopping-basket',
+                    'label'       => ProviderInfo::where('draft', 0)->count(),
+                    'label_color' => 'info',
+                ]);
+            }
             $event->menu->add('Orçamento');
             $event->menu->add([
                 'text'        => 'Orçamentos',

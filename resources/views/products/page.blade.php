@@ -75,14 +75,28 @@
                                     <input type="text" name="quantity" class="form-control" id="quantity"
                                         placeholder="Quantidade" value="{{ $data['quantity'] }}">
                                 </div>
-                                <!--  <div class="form-group col-md-4">
-                                        <label for="price">Valor</label>
-                                        <input type="text" name="price" class="form-control" id="price" placeholder="Valor (unit.)" value="{{ $data['price'] }}" disabled>
-                                    </div> -->
+                                @if(!PROVIDERS_MODULE)
+                                <div class="form-group col-md-4">
+                                    <label>Preço</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R$</span>
+                                        </div>
+                                        <input type="tel" name="price"
+                                            onkeypress="$(this).mask('#.##0,00', {reverse: true});" class="form-control"
+                                            placeholder="Valor (unit.)" value="{{ $data['price'] }}">
+                                    </div>
+                                </div>
+                                @endif
                                 <div class="form-group col">
-                                    <label for="weight">Peso</label>
-                                    <input type="text" name="weight" class="form-control" id="weight"
-                                        placeholder="Peso (opcional)" value="{{ $data['weight'] }}">
+                                    <label>Peso</label>
+                                    <div class="input-group">
+                                        <input type="text" name="weight" value="{{ $data['weight'] }}"
+                                            class="form-control" placeholder="Peso (opcional)">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Kg</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -92,6 +106,7 @@
                     </div>
                 </div>
 
+                @if(PROVIDERS_MODULE)
                 <div class="row">
                     <div class="col-12">
                         <div class="form-row mb-3">
@@ -114,11 +129,7 @@
                                     <script>
                                         setTimeout(function () {
                                             addNewSbr({!! json_encode($sb)!!});
-                                                    }, 1000)
-
-                                        $("#save-product").click(function () {
-                                            $("#product-form").submit();
-                                        });
+                                                        }, 1000)
                                     </script>
                                     @endpush
                                     @endforeach
@@ -127,7 +138,16 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
+                @push('js')
+                    <script>
+
+                        $("#save-product").click(function () {
+                            $("#product-form").submit();
+                        });
+                    </script>
+                @endpush
                 <x-modal-to-delete-product />
             </div>
         </div>
