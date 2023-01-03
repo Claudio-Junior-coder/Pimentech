@@ -70,6 +70,7 @@
                 $('#open-cart').modal('show');
                 $('#items-cart').html('');
                 $('#msg-cart').html('');
+                $('#resume').html('');
 
                 if(items == null || items.length == 0) {
                     $('#msg-cart').html(`
