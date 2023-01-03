@@ -23,6 +23,7 @@ class budgetsController extends Controller
         $budget = [
             'customer_name' => $request->all()['customer_name'],
             'total' => $request->all()['total'],
+            'number' => date('YmdHis'),
             'user_name' => Auth::user()->name
         ];
 
