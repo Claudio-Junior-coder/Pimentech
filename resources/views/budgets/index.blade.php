@@ -35,7 +35,7 @@
                                     color: white;
                                     ">
                                     <tr>
-                                        <th>#</th>
+                                        <th>Nº Orçamento</th>
                                         <th>Cliente</th>
                                         <th>Responsável</th>
                                         <th>Valor</th>
@@ -48,7 +48,7 @@
                                 <tbody>
                                     @foreach($data as $budget)
                                     <tr>
-                                        <td>{{$budget->id}}</td>
+                                        <td>{{$budget->number}}</td>
                                         <td>{{$budget->customer_name}}</td>
                                         <td>{{$budget->user_name}}</td>
                                         <td>{{$budget->total}}</td>

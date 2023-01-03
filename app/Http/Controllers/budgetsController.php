@@ -23,6 +23,8 @@ class budgetsController extends Controller
         $budget = [
             'customer_name' => $request->all()['customer_name'],
             'total' => $request->all()['total'],
+            'number' => date('YmdHis'),
+            'total_weight' => $request->all()['total_weight'],
             'user_name' => Auth::user()->name
         ];
 
@@ -36,6 +38,7 @@ class budgetsController extends Controller
             $newItems[$key]['product_name'] = $item['name'];
             $newItems[$key]['quantity'] = $item['qnt'];
             $newItems[$key]['price'] = $item['price'];
+            $newItems[$key]['weight'] = $item['weight'];
             $newItems[$key]['total_price'] = $item['priceTotal'];
         }
 

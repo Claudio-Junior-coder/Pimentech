@@ -17,7 +17,9 @@
 
                         <thead class="table-head">
                             <tr>
+                                <th scope="col">Itens</th>
                                 <th scope="col">Descritivo</th>
+                                <th scope="col">Peso (unit.)</th>
                                 <th scope="col">Valor (unit.)</th>
                                 <th scope="col">Qntd</th>
                                 <th scope="col">Total</th>
@@ -60,6 +62,7 @@
 
             function initCart() {
                 let total = 0;
+                let totalWeight = 0;
                 let items = JSON.parse(localStorage.getItem("items"));
 
                 $('#open-cart').modal('show');
@@ -75,12 +78,14 @@
                     return false;
                 }
 
-                items.forEach(element => {
+                items.forEach((element, i) => {
                     //if(element.name.length > 35) element.name = element.name.substring(0,35) + '...';
                     $('#items-cart').append(`
                         <tr id="item-`+ element.id +`">
+                            <td>`+ i + 1 +`</td>
                             <td>`+ element.name +`</td>
-                            <td>`+ element.price +`</td>
+                            <td>`+ element.weight +` Kg</td>
+                            <td>R$: `+ element.price +`</td>
                             <td>`+ element.qnt +`</td>
                             <td>`+ element.priceTotal +`</td>
                             <td><a class="ml-2 remove-from-cart" data-id="`+ element.id +`" role="button" style="color: #C82333;"><i class="fas fa-minus-circle"></i></a></td>
@@ -88,9 +93,10 @@
                     `);
 
                     total += parseFloat(element.priceTotal.replace('R$', '').replace('.', '').replace(',', '.'));
+                    totalWeight += parseFloat(element.weight);
                 });
 
-                $('#resume').html(`<h4 class="mr-3">Total: <span id="totalValue">`+ total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) +`</span></h4>`);
+                $('#resume').html(`<h4 class="mr-3">Peso Total: <span id="totalWeight">`+ totalWeight +` Kg</span> | Total: <span id="totalValue">`+ total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) +`</span></h4>`);
             }
 
             $('body').on('click', '.open-cart', function (e) {
@@ -163,7 +169,7 @@
                     $.ajax({
                         type: 'POST',
                         url: "/budgets/create",
-                        data: { data: items, customer_name: $("#customer-name").val(), total: $("#totalValue").text() },
+                        data: { data: items, customer_name: $("#customer-name").val(), total: $("#totalValue").text(), total_weight: $("#totalWeight").text()},
                         dataType: 'json',
                         success: function (data) {
                             localStorage.removeItem('items');

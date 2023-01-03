@@ -20,18 +20,8 @@
             text-align: center;
         }
 
-        .total {
-            border: 1px solid #000;
-            padding: 10px;
-            text-align: right;
-        }
-
-        .items {
+        .items, #items-cart {
             font-size: 12px;
-        }
-
-        .customer-info {
-            margin-bottom: 25px;
         }
 
         .customer-info td {
@@ -45,7 +35,7 @@
             <tbody>
 
                 <tr class="items">
-                    <td><img src="{{ asset('images/jr.png') }}" width="80px"></td>
+                    <td><img src="#" width="80px"></td>
                     <td style="padding: 0 0 10px 15px;">
                         <h3>JRsystem - sistema para gestão interna LTDA</h3> <br>
                         <span>Fausto Rizatti nº160, B. Jardim Nova Aparecida,</span><br>
@@ -56,7 +46,7 @@
                     </td>
                     <td>
                         <div class="ordernumber">
-                            <h3><b>ORÇAMENTO <br> Nº:</b> 355129</h3>
+                            <h3><b>ORÇAMENTO <br> Nº:</b> {{$budget['number']}}</h3>
                         </div>
                     </td>
                 </tr>
@@ -68,7 +58,7 @@
         <div style="margin-bottom: -20px;">
             <h5>INFORMAÇÕES DO CLIENTE:</h5>
         </div>
-        <table border="1" class="customer-info">
+        <table border="1" class="customer-info" style="margin-bottom: 25px;">
 
             <tbody>
 
@@ -92,26 +82,41 @@
 
         </table>
 
-        <div class="total">
-            <span>TOTAL DO PEDIDO: <b>{{$budget['total']}}</b></span>
-        </div>
+
+        <table border="1" class="customer-info" >
+
+            <tbody>
+
+                <tr class="items">
+                    <td> <span>TOTAL DO PEDIDO: <b>{{$budget['total']}}</b></span></td>
+                    <td><span>TOTAL DE PESO: <b>{{$budget['total_weight']}}</b></span></td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
 
         <table border="1">
 
             <thead class="table-head">
                 <tr>
-                    <th>Descritivo</th>
-                    <th>Valor (unit.)</th>
-                    <th>Qntd</th>
-                    <th>Total</th>
+                    <th scope="col">Itens</th>
+                    <th scope="col">Descritivo</th>
+                    <th scope="col">Peso (unit.)</th>
+                    <th scope="col">Valor (unit.)</th>
+                    <th scope="col">Qntd</th>
+                    <th scope="col">Total</th>
                 </tr>
             </thead>
 
 
-            <tbody>
-                @foreach($budgetItems as $item)
-                <tr class="items">
+            <tbody id="items-cart">
+                @foreach($budgetItems as $k => $item)
+                <tr>
+                    <td>{{$k+1}}</td>
                     <td>{{$item->product_name}}</td>
+                    <td>{{$item->weight}} Kg</td>
                     <td>{{$item->price}}</td>
                     <td>{{$item->quantity}}</td>
                     <td>{{$item->total_price}}</td>

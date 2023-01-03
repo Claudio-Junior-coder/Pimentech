@@ -11,14 +11,13 @@
             </div>
             <div class="modal-body">
                 <p><b>Descritivo:</b> <span id="nameProduct"></span></p>
-                <p><b>Peso:</b> <span id="weightProduct"></span></p>
+                <div class="d-flex justify-content-between">
+                    <p><b>Preço (unit.):</b> R$: <span id="priceProduct"></span></p>
+                    <p><b>Peso:</b> <span id="weightProduct"></span> Kg</p>
+                </div>
 
-                <p>Indique a quantidade e selecione o <b>SBR</b> desejado:</p>
+                <p>Indique a quantidade:</p>
                 <input type="number" class="form-control" min="0" id="qntd-budget" placeholder="Quantidade">
-                <br>
-                <select class="form-control" name="sbr-selected" id="sbr-selected">
-
-                </select>
                 <div class="msg mt-3"></div>
             </div>
             <div class="modal-footer">
@@ -39,38 +38,19 @@
 
             $('body').on('click', '.add-to-cart', function (e) {
 
-                $('#sbr-selected').html('');
                 $('.msg').html('');
 
                 let maxQntd = $(this).attr('data-qnt');
                 let nameProduct = $(this).attr('data-name');
                 let weightProduct = $(this).attr('data-weight');
+                let priceProduct = $(this).attr('data-price');
                 idProduct = $(this).attr('data-id');
 
                 $('#qntd-budget').attr('max', maxQntd)
                 $('#nameProduct').text(nameProduct);
                 $('#weightProduct').text(weightProduct);
+                $('#priceProduct').text(priceProduct);
                 $('#add-to-cart').modal('show');
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name=_token]').val()
-                    }
-                });
-                $.ajax({
-                    type: 'GET',
-                    url: "/sbr/get/by/product/" + idProduct,
-                    success: function (data) {
-                        data.forEach(function (element) {
-                            if(element.provider_name != undefined) {
-                                $('#sbr-selected').append(`
-                                    <option value="`+ element.budget_sale_price +`">Fornecedor: `+ element.provider_name[0].name +` | Preço de Venda: `+ element.budget_sale_price +`</option>
-                                `);
-                            }
-                        })
-
-                    }
-                });
 
             })
 
@@ -80,9 +60,9 @@
                 let itemsId = [idProduct];
                 let itemsName = [$('#nameProduct').text()];
                 let itemsQnt = [$('#qntd-budget').val()];
-                let itemPrice = $('#sbr-selected').val().replace('R$', '').replace('.', '').replace(',', '.');
-                let itemsPrice = [$('#sbr-selected').val()];
-                let itemPriceTotal = [(itemPrice * itemsQnt).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })];
+                let itemsWeight = [$('#weightProduct').text()];
+                let itemsPrice = [$('#priceProduct').text().replace('.', '').replace(',', '.')];
+                let itemPriceTotal = [(parseFloat(itemsPrice[0]) * itemsQnt).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })];
                 $('.msg').html('');
 
                 if(itemsQnt <= 0) {
@@ -113,6 +93,7 @@
                         name: itemsName[index_value],
                         qnt: itemsQnt[index_value],
                         price: itemsPrice[index_value],
+                        weight: itemsWeight[index_value],
                         priceTotal: itemPriceTotal[index_value],
                     };
                 });

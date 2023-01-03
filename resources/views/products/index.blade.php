@@ -34,9 +34,6 @@
                                 <thead class="table-head">
                                     <tr>
                                         <th>Descritivo</th>
-                                        <th>Marca</th>
-                                        <th>UM</th>
-                                        <th>Diâmetro</th>
                                         <th>Qntd</th>
                                         <th>Valor Venda (unit.)</th>
                                         <th>Ações</th>
@@ -48,14 +45,11 @@
                                     @foreach($data as $product)
                                     <tr>
                                         <td>{{mb_strimwidth($product->name, 0, 50, "...")}}</td>
-                                        <td>{{$product->brand}}</td>
-                                        <td>{{$product->um}}</td>
-                                        <td>{{$product->diameter}}</td>
                                         <td>{{$product->quantity}}</td>
-                                        <td>{{$product->price}}</td>
+                                        <td>R$: {{$product->price}}</td>
                                         <td>
                                             <a class="btn btn-success rounded-circle add-to-cart" role="button"
-                                                data-qnt="{{$product->quantity}}" data-weight="{{$product->weight}}"
+                                                data-qnt="{{$product->quantity}}" data-price="{{$product->price}}" data-weight="{{$product->weight}}"
                                                 data-name="{{$product->name}}" data-id="{{$product->id}}"><i
                                                     class="fas fa-cart-plus btn-success " aria-hidden="true"></i></a>
                                             <a class="ml-2 btn btn-info rounded-circle"

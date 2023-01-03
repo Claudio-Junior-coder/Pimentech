@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-define('PROVIDERS_MODULE', true);
+define('PROVIDERS_MODULE', false);
+
 
 /*
 |--------------------------------------------------------------------------

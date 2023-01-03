@@ -13,6 +13,8 @@ class Budgets extends Model
         'customer_name',
         'user_name',
         'total',
+        'total_weight',
+        'number',
         'low_stock',
         'created_at',
         'updated_at',
