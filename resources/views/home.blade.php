@@ -65,6 +65,22 @@ $isUserAdmin = auth()->user()->type;
     </div>
     @endif
 
+    <div class="col-lg-3 col-6">
+
+        <div class="small-box bg-light p-4">
+            <div class="inner">
+                <h3>{{$customers}}</h3>
+                <p>Clientes</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-address-card"></i>
+            </div>
+            <a href="{{route('customers.index')}}" class="small-box-footer">
+                Mais info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
     @if($isUserAdmin == 1)
 
     <div class="col-lg-3 col-6">

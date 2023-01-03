@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budgets;
 use App\Models\Products;
+use App\Models\Customers;
 use App\Models\BudgetsItems;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -20,9 +21,18 @@ class budgetsController extends Controller
 
     public function create (Request $request) {
 
+        $customer = Customers::where('id', $request->all()['customer_id'])->get()->first();
+
         $budget = [
-            'customer_name' => $request->all()['customer_name'],
             'total' => $request->all()['total'],
+            'customer_name' => $customer->name,
+            'customer_a_c' => $customer->a_c,
+            'customer_city' => $customer->city,
+            'customer_address_to_shipping' => $customer->address_to_shipping,
+            'customer_phone' => $customer->phone,
+            'customer_cnpj' => $customer->cnpj,
+            'customer_email' => $customer->email,
+            'customer_state' => $customer->state,
             'number' => date('YmdHis'),
             'user_name' => Auth::user()->name
         ];
@@ -53,6 +63,19 @@ class budgetsController extends Controller
         $budgetItems = BudgetsItems::where('budget_id', $id)->get();
 
         return view('budgets.page', compact('budgetItems', 'budget'));
+
+    }
+
+    public function createPdf (Request $request) {
+
+        $data = $request->all();
+        unset($data['_token']);
+
+        $data['pdf_was_generated'] = 1;
+
+        $budget = Budgets::where('id', $data['id'])->update($data);
+
+        return redirect()->route('budgets.view', ['id' => $data['id'], 'message' => 'PDF Gerado com sucesso!']);
 
     }
 

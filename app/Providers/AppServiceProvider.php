@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\Budgets;
 use App\Models\Products;
+use App\Models\Customers;
 use App\Models\ProviderInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -52,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
                 'url'         => 'products',
                 'icon'        => 'fa fa-cubes',
                 'label'       => Products::where('draft', 0)->count(),
-                'label_color' => 'info',
+                'label_color' => 'primary',
             ]);
             if(PROVIDERS_MODULE) {
                 $event->menu->add([
@@ -60,16 +61,23 @@ class AppServiceProvider extends ServiceProvider
                     'url'         => 'providers-info',
                     'icon'        => 'fa fa-shopping-basket',
                     'label'       => ProviderInfo::where('draft', 0)->count(),
-                    'label_color' => 'info',
+                    'label_color' => 'warning',
                 ]);
             }
+            $event->menu->add([
+                'text'        => 'Clientes',
+                'url'         => 'customers',
+                'icon'        => 'fa fa-address-card',
+                'label'       => Customers::count(),
+                'label_color' => 'light',
+            ]);
             $event->menu->add('Orçamento');
             $event->menu->add([
                 'text'        => 'Orçamentos',
                 'url'         => 'budgets',
                 'icon'        => 'fas fa-money-check-alt',
                 'label'       => Budgets::count(),
-                'label_color' => 'info',
+                'label_color' => 'success',
             ]);
             $event->menu->add([
                 'text'        => 'Ver carrinho',
@@ -88,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
                             'url'  => '/users',
                             'icon'        => 'fas fa-fw fa-user',
                             'label'       => User::count(),
-                            'label_color' => 'info',
+                            'label_color' => 'danger',
                         ],
                         [
                             'text' => 'change_password',

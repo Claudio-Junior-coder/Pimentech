@@ -7,6 +7,7 @@ use App\Http\Controllers\usersController;
 use App\Http\Controllers\budgetsController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\providerInfoController;
+use App\Http\Controllers\CustomersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,23 @@ Route::get('/budgets/pdf/{id}', [budgetsController::class, 'pdf'])->name('budget
 
 Route::post('/budgets/create', [budgetsController::class, 'create'])->name('budgets.create')->middleware('auth');
 
+Route::post('/budgets/create/pdf', [budgetsController::class, 'createPdf'])->name('budgets.create.pdf')->middleware('auth');
+
 Route::post('/budgets/low/stock', [budgetsController::class, 'lowStock'])->name('budgets.low.stock')->middleware('auth');
+
+
+//clientes
+Route::get('/customers', [CustomersController::class, 'index'])->name('customers.index')->middleware('auth');
+
+Route::get('/customers/listing', [CustomersController::class, 'listing'])->name('customers.listing')->middleware('auth');
+
+Route::get('/customers/search', [CustomersController::class, 'search'])->name('customers.search')->middleware('auth');
+
+Route::get('/customers/create', [CustomersController::class, 'create'])->name('customers.create')->middleware('auth');
+
+Route::get('/customers/update/{id}', [CustomersController::class, 'update'])->name('customers.update')->middleware('auth');
+
+Route::post('/customers/edit', [CustomersController::class, 'edit'])->name('customers.edit')->middleware('auth');
+
+Route::post('/customers/delete', [CustomersController::class, 'delete'])->name('customers.delete')->middleware('auth');
 

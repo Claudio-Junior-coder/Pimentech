@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Budgets;
 use App\Models\Products;
+use App\Models\Customers;
 use App\Models\ProviderInfo;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,8 @@ class HomeController extends Controller
         $providers = ProviderInfo::where('draft', 0)->count();
         $budgets = Budgets::count();
         $users = User::count();
+        $customers = Customers::count();
 
-        return view('home', compact('products', 'providers', 'budgets', 'users'));
+        return view('home', compact('products', 'providers', 'budgets', 'users', 'customers'));
     }
 }

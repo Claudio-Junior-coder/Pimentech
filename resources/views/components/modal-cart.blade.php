@@ -8,6 +8,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <input id="add-cart-product-id" type="hidden" name="id">
+            <input id="add-cart-customer-id" type="hidden" name="customer_id">
             </div>
             <div class="modal-body">
                 <p>Abaixo está a listagem de todos os itens selecionados para orçamento:</p>
@@ -35,6 +36,9 @@
                 </div>
                 <div id="customer-info">
                     <input class="form-control border border-danger" type="text" placeholder="Nome do cliente" id="customer-name">
+                    <div id="resultsSearch">
+
+                    </div>
                 </div>
                 <div id="msg-cart" class="mt-3"></div>
             </div>
@@ -139,6 +143,56 @@
                 initCart();
             });
 
+            var typingTimer;
+            var doneTypingInterval = 1000;
+            $('#customer-name').keyup(function(e) {
+                clearTimeout(typingTimer);
+                if ($('#customer-name').val) {
+                    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                }
+            })
+
+            function doneTyping() {
+                $.ajax({
+                    url: "/customers/search?search=" + $('#customer-name').val(),
+                    type: "GET",
+                    success: function (response) {
+
+                        $('#resultsSearch').html(``);
+                        if(response == undefined ) {
+
+                            let template =`
+                                <div>
+                                    <a style="color: black;" href="#">
+                                        Nenhum resultado encontrado.
+                                    </a>
+                                </div>`;
+                            $("#resultsSearch").append(template);
+                            return false;
+                        }
+                        $.each(response, function (key, item) {
+                            let template =`
+                                <div class="mb-3">
+                                    <a class="item-search bg-info p-2" href="#" data-id="`+ item.id +`">` + item.name + `</a>
+                                </div>`;
+                            $("#resultsSearch").append(template);
+                        });
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            }
+
+            $('body').on('click', '.item-search', function (e) {
+                $('#resultsSearch').html(``);
+                $('#customer-name').val($(this).text())
+                $('#add-cart-customer-id').val($(this).data('id'));
+            });
+
+
             $('body').on('click', '.add-budget', function (e) {
 
                 $('#msg-cart').html('');
@@ -163,7 +217,7 @@
                     $.ajax({
                         type: 'POST',
                         url: "/budgets/create",
-                        data: { data: items, customer_name: $("#customer-name").val(), total: $("#totalValue").text() },
+                        data: { data: items, customer_id: $("#add-cart-customer-id").val(), total: $("#totalValue").text() },
                         dataType: 'json',
                         success: function (data) {
                             localStorage.removeItem('items');
