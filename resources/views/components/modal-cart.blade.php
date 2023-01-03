@@ -20,6 +20,7 @@
                             <tr>
                                 <th scope="col">Descritivo</th>
                                 <th scope="col">Valor (unit.)</th>
+                                <th scope="col">Unid</th>
                                 <th scope="col">Qntd</th>
                                 <th scope="col">Total</th>
                                 <th scope="col">Ações</th>
@@ -85,6 +86,7 @@
                         <tr id="item-`+ element.id +`">
                             <td>`+ element.name +`</td>
                             <td>`+ element.price +`</td>
+                            <td>`+ element.um +`</td>
                             <td>`+ element.qnt +`</td>
                             <td>`+ element.priceTotal +`</td>
                             <td><a class="ml-2 remove-from-cart" data-id="`+ element.id +`" role="button" style="color: #C82333;"><i class="fas fa-minus-circle"></i></a></td>

@@ -47,6 +47,7 @@ class budgetsController extends Controller
             $newItems[$key]['product_name'] = $item['name'];
             $newItems[$key]['quantity'] = $item['qnt'];
             $newItems[$key]['price'] = $item['price'];
+            $newItems[$key]['um'] = $item['um'];
             $newItems[$key]['total_price'] = $item['priceTotal'];
         }
 

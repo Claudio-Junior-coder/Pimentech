@@ -12,6 +12,7 @@
             <div class="modal-body">
                 <p><b>Descritivo:</b> <span id="nameProduct"></span></p>
                 <p><b>Peso:</b> <span id="weightProduct"></span></p>
+                <p><b>Unid:</b> <span id="unProduct"></span></p>
 
                 <p>Indique a quantidade e selecione o <b>SBR</b> desejado:</p>
                 <input type="number" class="form-control" min="0" id="qntd-budget" placeholder="Quantidade">
@@ -45,11 +46,13 @@
                 let maxQntd = $(this).attr('data-qnt');
                 let nameProduct = $(this).attr('data-name');
                 let weightProduct = $(this).attr('data-weight');
+                let unProduct = $(this).attr('data-un');
                 idProduct = $(this).attr('data-id');
 
                 $('#qntd-budget').attr('max', maxQntd)
                 $('#nameProduct').text(nameProduct);
                 $('#weightProduct').text(weightProduct);
+                $('#unProduct').text(unProduct);
                 $('#add-to-cart').modal('show');
 
                 $.ajaxSetup({
@@ -79,6 +82,7 @@
                 var items = JSON.parse(localStorage.getItem("items"));
                 let itemsId = [idProduct];
                 let itemsName = [$('#nameProduct').text()];
+                let itemsUn = [$('#unProduct').text()];
                 let itemsQnt = [$('#qntd-budget').val()];
                 let itemPrice = $('#sbr-selected').val().replace('R$', '').replace('.', '').replace(',', '.');
                 let itemsPrice = [$('#sbr-selected').val()];
@@ -113,6 +117,7 @@
                         name: itemsName[index_value],
                         qnt: itemsQnt[index_value],
                         price: itemsPrice[index_value],
+                        um: itemsUn[index_value],
                         priceTotal: itemPriceTotal[index_value],
                     };
                 });

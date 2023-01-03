@@ -16,6 +16,7 @@ class BudgetsItems extends Model
         'product_name',
         'quantity',
         'price',
+        'um',
         'total_price',
         'created_at',
         'updated_at',

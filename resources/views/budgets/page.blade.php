@@ -165,8 +165,9 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Descritivo</th>
-                                            <th scope="col">Valor (unit.)</th>
                                             <th scope="col">Qntd</th>
+                                            <th scope="col">Unid</th>
+                                            <th scope="col">Valor (unit.)</th>
                                             <th scope="col">Total</th>
                                         </tr>
                                     </thead>
@@ -177,8 +178,9 @@
                                         <tr>
                                             <td>{{$k + 1}}</td>
                                             <td>{{$item->product_name}}</td>
-                                            <td>{{$item->price}}</td>
                                             <td>{{$item->quantity}}</td>
+                                            <td>{{$item->um}}</td>
+                                            <td>{{$item->price}}</td>
                                             <td>{{$item->total_price}}</td>
                                         </tr>
                                         @endforeach
