@@ -26,7 +26,7 @@ class budgetsController extends Controller
         $budget = [
             'total' => $request->all()['total'],
             'customer_name' => $customer->name,
-            'customer_a_c' => $customer->a_c,
+            'second_customer_phone' => $customer->a_c,
             'customer_city' => $customer->city,
             'customer_address_to_shipping' => $customer->address_to_shipping,
             'customer_phone' => $customer->phone,
@@ -62,6 +62,8 @@ class budgetsController extends Controller
         $budget = Budgets::where('id', $id)->get()->first();
 
         $budgetItems = BudgetsItems::where('budget_id', $id)->get();
+
+        $budget->totalWithoutCharacters = strtoupper($this->valorPorExtenso($budget->total, true, false));
 
         return view('budgets.page', compact('budgetItems', 'budget'));
 

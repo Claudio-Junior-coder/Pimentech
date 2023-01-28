@@ -203,6 +203,12 @@
     $("#budget-user").click(function () {
         $("#budget-form").submit();
     });
+
+
+
+    $(".generate-pdf").click(function () {
+        $("#price_in_string").val("{{$budget['totalWithoutCharacters']}}");
+    });
 </script>
 @endpush
 @stop

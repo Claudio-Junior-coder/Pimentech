@@ -45,13 +45,30 @@
                                         placeholder="Telefone Principal" value="{{ $data['telephone'] }}">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="telephone_two">Telefone Secundário</label>
+                                    <label for="telephone_two">Telefone Vendedor</label>
                                     <input type="text" name="telephone_two" class="form-control" id="telephone_two"
-                                        placeholder="Telefone Secundário" value="{{ $data['telephone_two'] }}">
+                                        placeholder="Telefone Vendedor" value="{{ $data['telephone_two'] }}">
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
                             <input type="hidden" name="draft" value="0">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="E-mail"
+                                        value="{{ $data['email'] }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="contact">Contato</label>
+                                    <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato"
+                                        value="{{ $data['contact'] }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cnpj">CNPJ</label>
+                                    <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ"
+                                        value="{{ $data['cnpj'] }}">
+                                </div>
+                            </div>
                             <div class="form-row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="address">Rua</label>

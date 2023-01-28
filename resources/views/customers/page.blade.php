@@ -40,14 +40,14 @@
                                         value="{{ $data['name'] }}">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="a_c">A/C</label>
-                                    <input type="text" name="a_c" class="form-control" id="a_c"
-                                        placeholder="A/C" value="{{ $data['a_c'] }}">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="phone">Telefone</label>
+                                    <label for="phone">Telefone Principal</label>
                                     <input type="text" class="form-control" name="phone" id="phone"
                                         placeholder="Telefone" value="{{ $data['phone'] }}">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="a_c">Telefone A/C</label>
+                                    <input type="text" name="a_c" class="form-control" id="a_c"
+                                        placeholder="A/C" value="{{ $data['a_c'] }}">
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">

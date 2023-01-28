@@ -12,6 +12,12 @@
             </div>
             <div class="modal-body">
                 <div class="form-row w-100">
+                    <div class="form-group col-md-12">
+                        <label for="a_c">AOS CUIDADOS DE:</label>
+                        <input class="form-control" name="customer_a_c" id="a_c" placeholder="Aos cuidados de">
+                    </div>
+                </div>
+                <div class="form-row w-100">
                     <div class="form-group col-md-6">
                         <label for="condition_payment">COND. PAGAMENTO:</label>
                         <input class="form-control" name="condition_payment" id="condition_payment" placeholder="Condição de pagamento">
