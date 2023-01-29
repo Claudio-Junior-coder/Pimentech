@@ -107,13 +107,17 @@ class budgetsController extends Controller
         foreach($budgetItems as $budget){
             $product = Products::where('id', $budget['product_id'])->get()->first();
 
-            $finalQuantity = $product['quantity'] - $budget['quantity'];
+            if ($product !== null) {
 
-            $newProduct = [];
-            $newProduct['id'] = $product['id'];
-            $newProduct['quantity'] = $finalQuantity;
+                $finalQuantity = $product['quantity'] - $budget['quantity'];
 
-            Products::where('id', $budget['product_id'])->update($newProduct);
+                $newProduct = [];
+                $newProduct['id'] = $product['id'];
+                $newProduct['quantity'] = $finalQuantity;
+
+                Products::where('id', $budget['product_id'])->update($newProduct);
+
+            }
         }
 
         Budgets::where('id', $data['id'])->update($data);

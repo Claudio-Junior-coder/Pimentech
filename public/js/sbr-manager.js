@@ -93,15 +93,37 @@ function removeSbr(id) {
 
 
 function calculateCostPrice(id) {
+
+    //get field values
     let productPrice = $('input[name=provider_price-' + id + ']').val().replace('.', '');
-    let taxesPrice = parseFloat($('input[name=budget_price-' + id + ']').val()) + 100;
-    let shippingPrice = parseFloat($('input[name=shipping_price-' + id + ']').val()) + 100;
-    let profitPrice = parseFloat($('input[name=profit_price-' + id + ']').val()) + 100;
+    let taxesPrice = parseFloat($('input[name=budget_price-' + id + ']').val().replace(',', '.')) + 100;
+    let shippingPrice = parseFloat($('input[name=shipping_price-' + id + ']').val().replace(',', '.')) + 100;
+    let profitPrice = parseFloat($('input[name=profit_price-' + id + ']').val().replace(',', '.')) + 100;
     let costPrice = 0;
 
-    productPrice = productPrice.replace(',', '.');
-    let productWithTaxes = productPrice * (taxesPrice / 100);
+    //check if field is empty
+    if (Number(productPrice) !== Number(productPrice)){
+        productPrice = 0;
+    }
 
+    if (Number(taxesPrice) !== Number(taxesPrice)){
+        taxesPrice = 100;
+    }
+
+    if (Number(shippingPrice) !== Number(shippingPrice)){
+        shippingPrice = 100;
+    }
+
+    if (Number(profitPrice) !== Number(profitPrice)){
+        profitPrice = 100;
+    }
+
+    //calculate
+    if(productPrice != 0) {
+        productPrice = productPrice.replace(',', '.');
+    }
+
+    let productWithTaxes = productPrice * (taxesPrice / 100);
     costPrice = productWithTaxes * (shippingPrice / 100);
     let salePrice = costPrice * (profitPrice / 100);
 
@@ -154,7 +176,7 @@ function addNewSbr(data) {
             <div class="form-group col">
                 <label>Impostos</label>
                 <div class="input-group">
-                    <input type="text" name="budget_price-`+ data.id + `" data-id="` + data.id + `" data-name="budget_price" value="` + data.budget_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
+                    <input type="number" name="budget_price-`+ data.id + `" data-id="` + data.id + `" data-name="budget_price" value="` + data.budget_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
@@ -163,7 +185,7 @@ function addNewSbr(data) {
             <div class="form-group col">
                 <label>Frete</label>
                 <div class="input-group">
-                    <input type="text" name="shipping_price-`+ data.id + `" data-id="` + data.id + `" data-name="shipping_price" value="` + data.shipping_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
+                    <input type="number" name="shipping_price-`+ data.id + `" data-id="` + data.id + `" data-name="shipping_price" value="` + data.shipping_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
@@ -176,7 +198,7 @@ function addNewSbr(data) {
             <div class="form-group col">
                 <label>Lucro</label>
                 <div class="input-group">
-                    <input type="text" name="profit_price-`+ data.id + `" data-id="` + data.id + `" data-name="profit_price" value="` + data.profit_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
+                    <input type="number" name="profit_price-`+ data.id + `" data-id="` + data.id + `" data-name="profit_price" value="` + data.profit_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>

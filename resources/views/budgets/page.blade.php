@@ -58,9 +58,9 @@
                             <div class="form-row mb-2">
                                 <div class="input-group col-8">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-dark">A/C: </span>
+                                        <span class="input-group-text bg-dark">Fone A/C: </span>
                                     </div>
-                                    <input type="text" class="form-control" value="{{$budget['customer_a_c']}}"
+                                    <input type="text" class="form-control" value="{{$budget['second_customer_phone']}}"
                                         disabled>
                                 </div>
                                 <div class="input-group col-4">
@@ -107,6 +107,15 @@
                                 <h5 style="color: #0069D9;">Informações do orçamento</h5>
                             </div>
                             @if($budget['pdf_was_generated'] == 1)
+                                <div class="form-row mb-2">
+                                    <div class="input-group col-12">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-dark">Aos Cuidados de: </span>
+                                        </div>
+                                        <input type="text" class="form-control" value="{{$budget['customer_a_c']}}"
+                                            disabled>
+                                    </div>
+                                </div>
                                 <div class="form-row mb-2">
                                     <div class="input-group col-8">
                                         <div class="input-group-prepend">

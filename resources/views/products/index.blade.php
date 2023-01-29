@@ -36,7 +36,6 @@
                                         <th>Descritivo</th>
                                         <th>Marca</th>
                                         <th>Unid</th>
-                                        <th>Diâmetro</th>
                                         <th>Qntd</th>
                                         <th>Valor Venda (unit.)</th>
                                         <th>Ações</th>
@@ -50,7 +49,6 @@
                                         <td>{{mb_strimwidth($product->name, 0, 50, "...")}}</td>
                                         <td>{{$product->brand}}</td>
                                         <td>{{$product->um}}</td>
-                                        <td>{{$product->diameter}}</td>
                                         <td>{{$product->quantity}}</td>
                                         <td>{{$product->price}}</td>
                                         <td>

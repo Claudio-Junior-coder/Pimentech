@@ -28,6 +28,7 @@ class Budgets extends Model
         'customer_email',
         'customer_state',
         'pdf_was_generated',
+        'second_customer_phone',
         'created_at',
         'updated_at',
     ];

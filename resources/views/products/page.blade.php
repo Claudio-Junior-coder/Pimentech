@@ -45,30 +45,40 @@
                                         value="{{ $data['brand'] }}">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="um">Um</label>
+                                    <label for="um">Un</label>
                                     <select id="um" name="um" class="form-control">
                                         @php
-                                        $BR = $data['um'] == "BR" ? "selected" : "";
-                                        $PC = $data['um'] == "PC" ? "selected" : "";
-                                        $MT = $data['um'] == "MT" ? "selected" : "";
-                                        $RL = $data['um'] == "RL" ? "selected" : "";
-                                        $NA = "";
-                                        if($BR == "" && $PC == "" && $MT == "" && $RL == "") {
-                                        $NA = "selected";
-                                        }
+                                            $BR = $data['um'] == "BR" ? "selected" : "";
+                                            $PC = $data['um'] == "PC" ? "selected" : "";
+                                            $MT = $data['um'] == "MT" ? "selected" : "";
+                                            $RL = $data['um'] == "RL" ? "selected" : "";
+                                            $CJ = $data['um'] == "CJ" ? "selected" : "";
+                                            $KG = $data['um'] == "KG" ? "selected" : "";
+                                            $ML = $data['um'] == "ML" ? "selected" : "";
+                                            $PAR = $data['um'] == "PAR" ? "selected" : "";
+                                            $EC = $data['um'] == "EC" ? "selected" : "";
+                                            $TN = $data['um'] == "TN" ? "selected" : "";
+                                            $PT = $data['um'] == "PT" ? "selected" : "";
+                                            $NA = "";
+
+                                            if($BR == "" && $PC == "" && $MT == "" && $RL == "" && $CJ == "" && $KG == ""
+                                            && $ML == "" && $PAR == "" && $EC == "" && $TN == "" && $PT == "") {
+                                                $NA = "selected";
+                                            }
                                         @endphp
                                         <option value="N/A" {{$NA}}>N/A</option>
                                         <option value="BR" {{$BR}}>BR</option>
                                         <option value="PÇ" {{$PC}}>PÇ</option>
                                         <option value="MT" {{$MT}}>MT</option>
                                         <option value="RL" {{$RL}}>RL</option>
+                                        <option value="CJ" {{$CJ}}>CJ</option>
+                                        <option value="KG" {{$KG}}>KG</option>
+                                        <option value="M/L" {{$ML}}>M/L</option>
+                                        <option value="PAR" {{$PAR}}>PAR</option>
+                                        <option value="EÇ" {{$EC}}>EÇ</option>
+                                        <option value="TN" {{$TN}}>TN</option>
+                                        <option value="PT" {{$PT}}>PT</option>
                                     </select>
-                                </div>
-
-                                <div class="form-group col">
-                                    <label for="diameter">Diâmetro</label>
-                                    <input type="text" class="form-control" name="diameter" id="diameter"
-                                        placeholder="Diâmetro" value="{{ $data['diameter'] }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="quantity">Quantidade</label>
