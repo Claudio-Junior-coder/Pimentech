@@ -37,17 +37,17 @@
                                 <div class="form-group col-md-6">
                                     <label for="name">Nome</label>
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Nome"
-                                        value="{{ $data['name'] }}">
+                                        value="{{ $data['name'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="telephone">Telefone Principal</label>
                                     <input type="text" class="form-control" name="telephone" id="telephone"
-                                        placeholder="Telefone Principal" value="{{ $data['telephone'] }}">
+                                        placeholder="Telefone Principal" value="{{ $data['telephone'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="telephone_two">Telefone Vendedor</label>
                                     <input type="text" name="telephone_two" class="form-control" id="telephone_two"
-                                        placeholder="Telefone Vendedor" value="{{ $data['telephone_two'] }}">
+                                        placeholder="Telefone Vendedor" value="{{ $data['telephone_two'] }}" autocomplete="off">
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
@@ -56,54 +56,54 @@
                                 <div class="form-group col-md-4">
                                     <label for="email">E-mail</label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder="E-mail"
-                                        value="{{ $data['email'] }}">
+                                        value="{{ $data['email'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="contact">Contato</label>
                                     <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato"
-                                        value="{{ $data['contact'] }}">
+                                        value="{{ $data['contact'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="cnpj">CNPJ</label>
                                     <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ"
-                                        value="{{ $data['cnpj'] }}">
+                                        value="{{ $data['cnpj'] }}" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="address">Rua</label>
                                     <input type="text" class="form-control" name="address" id="address"
-                                        placeholder="Endereço" value="{{ $data['address'] }}">
+                                        placeholder="Endereço" value="{{ $data['address'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="add_number">Nº</label>
                                     <input type="text" class="form-control" name="add_number" id="add_number"
-                                        placeholder="Nº" value="{{ $data['add_number'] }}">
+                                        placeholder="Nº" value="{{ $data['add_number'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="zone">Bairro</label>
                                     <input type="text" class="form-control" name="zone" id="zone" placeholder="Bairro"
-                                        value="{{ $data['zone'] }}">
+                                        value="{{ $data['zone'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="city">Cidade</label>
                                     <input type="text" class="form-control" name="city" id="city" placeholder="Cidade"
-                                        value="{{ $data['city'] }}">
+                                        value="{{ $data['city'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="state">Estado</label>
                                     <input type="text" class="form-control" name="state" id="state" placeholder="Estado"
-                                        value="{{ $data['state'] }}">
+                                        value="{{ $data['state'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="cep">CEP</label>
                                     <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP"
-                                        value="{{ $data['cep'] }}">
+                                        value="{{ $data['cep'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="description">Observações</label>
                                     <input type="text" name="description" class="form-control" id="description"
-                                        placeholder="Observações" value="{{ $data['description'] }}">
+                                        placeholder="Observações" value="{{ $data['description'] }}" autocomplete="off">
                                 </div>
                             </div>
                         </form>

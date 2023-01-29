@@ -75,9 +75,12 @@ class CustomersController extends Controller
         $customers = Customers::where(
             [
                 ['draft', '=', '0'],
-                ['name', 'LIKE', '%'. $_GET['search'] .'%'],
+                ['name', 'LIKE', '%'. $_GET['search'] .'%']
             ]
-        )->get();
+        )->orWhere([
+            ['draft', '=', '0'],
+            ['cod', 'LIKE', '%'. $_GET['search'] .'%']
+        ])->get();
 
         return $customers;
     }

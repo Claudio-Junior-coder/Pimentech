@@ -48,9 +48,9 @@ class sbrController extends Controller
 
         Sbr::where('id', $request->all()['id'])->update($data);
 
-        if(isset($data['budget_date']) || isset($data['budget_sale_price'])) {
+        if(isset($data['budget_date']) || isset($data['cost_price'])) {
             $sbr = Sbr::where('product_id', $data['product_id'])->orderBy('budget_date', 'desc')->get()->first();
-            $dataProduct = ['id' => $sbr->product_id, 'price' => $sbr->budget_sale_price];
+            $dataProduct = ['id' => $sbr->product_id, 'price' => $sbr->cost_price];
             Products::where('id', $sbr->product_id)->update($dataProduct);
         }
 

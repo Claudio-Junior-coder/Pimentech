@@ -80,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'success',
             ]);
             $event->menu->add([
-                'text'        => 'Ver carrinho',
+                'text'        => 'Ver orçamento',
                 'url'         => '#',
                 'classes'     => 'open-cart',
                 'icon'        => 'fas fa-cart-plus',

@@ -48,7 +48,7 @@ function createSbr(product_id) {
     $.ajax({
         type: 'POST',
         url: "/sbr/create",
-        data: { product_id: product_id, provider_price: 0, budget_price: 0, budget_sale_price: 0, shipping_price: 0, cost_price: 0, profit_price: 0 },
+        data: { product_id: product_id, provider_price: 0, budget_price: 0, budget_sale_price: 0, other_taxes: 0, shipping_price: 0, cost_price: 0, profit_price: 0 },
         success: function (data) {
             addNewSbr(data);
         }
@@ -96,14 +96,22 @@ function calculateCostPrice(id) {
 
     //get field values
     let productPrice = $('input[name=provider_price-' + id + ']').val().replace('.', '');
+    let otherTaxes = parseFloat($('input[name=other_taxes-' + id + ']').val().replace(',', '.')) + 100;
     let taxesPrice = parseFloat($('input[name=budget_price-' + id + ']').val().replace(',', '.')) + 100;
     let shippingPrice = parseFloat($('input[name=shipping_price-' + id + ']').val().replace(',', '.')) + 100;
-    let profitPrice = parseFloat($('input[name=profit_price-' + id + ']').val().replace(',', '.')) + 100;
     let costPrice = 0;
+
+    if(productPrice != 0) {
+        productPrice = productPrice.replace(',', '.');
+    }
 
     //check if field is empty
     if (Number(productPrice) !== Number(productPrice)){
         productPrice = 0;
+    }
+
+    if (Number(otherTaxes) !== Number(otherTaxes)){
+        otherTaxes = 100;
     }
 
     if (Number(taxesPrice) !== Number(taxesPrice)){
@@ -114,26 +122,20 @@ function calculateCostPrice(id) {
         shippingPrice = 100;
     }
 
-    if (Number(profitPrice) !== Number(profitPrice)){
-        profitPrice = 100;
-    }
-
     //calculate
-    if(productPrice != 0) {
-        productPrice = productPrice.replace(',', '.');
-    }
-
-    let productWithTaxes = productPrice * (taxesPrice / 100);
+    let productWithOtherTaxes = productPrice * (otherTaxes / 100);
+    let productWithTaxes = productWithOtherTaxes * (taxesPrice / 100);
     costPrice = productWithTaxes * (shippingPrice / 100);
-    let salePrice = costPrice * (profitPrice / 100);
+
+    if(costPrice == 0) {
+        costPrice = productPrice;
+    }
 
     $('input[name=cost_price-' + id + ']').val(costPrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }))
-    $('input[name=budget_sale_price-' + id + ']').val(salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }))
 
     let product_id = $('.add-sbr-fields').attr('data-productId');
 
     editSbr(id, 'cost_price', $('input[name=cost_price-' + id + ']').val(), product_id, $('input[name=cost_price-' + id + ']'));
-    editSbr(id, 'budget_sale_price', $('input[name=budget_sale_price-' + id + ']').val(), product_id, $('input[name=budget_sale_price-' + id + ']'));
 }
 
 
@@ -152,6 +154,8 @@ function addNewSbr(data) {
             `;
         }
     });
+
+    let checkObs = data.obs == undefined ? "" : data.obs;
     $(".sbr-form").append(`
         <div class="sbr-big-screen row mb-3" id="v`+ data.id + `">
             <div class="form-group col">
@@ -161,22 +165,31 @@ function addNewSbr(data) {
                 </select>
             </div>
             <div class="form-group col">
-                <label>Preço</label>
+                <label>Custo</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">R$</span>
                     </div>
-                    <input data-id="`+ data.id + `" data-name="provider_price" type="tel" name="provider_price-` + data.id + `" onkeypress="$(this).mask('#.##0,00', {reverse: true});" class="calculate-cost-price  form-control edit-sbr" placeholder="Valor (unit.)" value="` + data.provider_price + `">
+                    <input autocomplete="off" data-id="`+ data.id + `" data-name="provider_price" type="tel" name="provider_price-` + data.id + `" onkeypress="$(this).mask('#.##0,00', {reverse: true});" class="calculate-cost-price  form-control edit-sbr" placeholder="Valor (unit.)" value="` + data.provider_price + `">
                 </div>
             </div>
             <div class="form-group col">
                 <label for="date">Data</label>
-                <input data-id="`+ data.id + `" data-name="provider_date" type="date" name="provider_date-` + data.id + `" class="form-control edit-sbr" value="` + data.provider_date + `">
+                <input autocomplete="off" data-id="`+ data.id + `" data-name="provider_date" type="date" name="provider_date-` + data.id + `" class="form-control edit-sbr" value="` + data.provider_date + `">
             </div>
             <div class="form-group col">
-                <label>Impostos</label>
+                <label>Outros</label>
                 <div class="input-group">
-                    <input type="number" name="budget_price-`+ data.id + `" data-id="` + data.id + `" data-name="budget_price" value="` + data.budget_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
+                    <input autocomplete="off" type="number" name="other_taxes-`+ data.id + `" data-id="` + data.id + `" data-name="other_taxes" value="` + data.other_taxes + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col">
+                <label>ST</label>
+                <div class="input-group">
+                    <input autocomplete="off" type="number" name="budget_price-`+ data.id + `" data-id="` + data.id + `" data-name="budget_price" value="` + data.budget_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
@@ -185,32 +198,23 @@ function addNewSbr(data) {
             <div class="form-group col">
                 <label>Frete</label>
                 <div class="input-group">
-                    <input type="number" name="shipping_price-`+ data.id + `" data-id="` + data.id + `" data-name="shipping_price" value="` + data.shipping_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
+                    <input autocomplete="off" type="number" name="shipping_price-`+ data.id + `" data-id="` + data.id + `" data-name="shipping_price" value="` + data.shipping_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
                 </div>
             </div>
             <div class="form-group col">
-                <label>Custo</label>
-                <input type="text" name="cost_price-`+ data.id + `" data-id="` + data.id + `" data-name="cost_price" value="` + data.cost_price + `" class="form-control edit-sbr" placeholder="Valor (unit.)" disabled>
-            </div>
-            <div class="form-group col">
-                <label>Lucro</label>
-                <div class="input-group">
-                    <input type="number" name="profit_price-`+ data.id + `" data-id="` + data.id + `" data-name="profit_price" value="` + data.profit_price + `" class="calculate-cost-price form-control edit-sbr" placeholder="Valor (unit.)">
-                    <div class="input-group-append">
-                        <span class="input-group-text">%</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col">
-                <label>Venda</label>
-                <input type="text" name="budget_sale_price-`+ data.id + `" data-id="` + data.id + `" data-name="budget_sale_price" value="` + data.budget_sale_price + `" class="form-control edit-sbr" placeholder="Valor (unit.)" disabled>
+                <label>Custo Final</label>
+                <input autocomplete="off" type="text" name="cost_price-`+ data.id + `" data-id="` + data.id + `" data-name="cost_price" value="` + data.cost_price + `" class="form-control edit-sbr" placeholder="Valor (unit.)" disabled>
             </div>
             <div class="form-group col">
                 <label for="date">Data</label>
-                <input type="date" name="budget_date-`+ data.id + `" data-id="` + data.id + `" data-name="budget_date" value="` + data.budget_date + `" class="form-control edit-sbr">
+                <input autocomplete="off" type="date" name="budget_date-`+ data.id + `" data-id="` + data.id + `" data-name="budget_date" value="` + data.budget_date + `" class="form-control edit-sbr">
+            </div>
+            <div class="form-group col">
+                <label>Obs</label>
+                <input autocomplete="off" type="text" name="obs-`+ data.id + `" class="form-control edit-sbr" data-name="obs" data-id="` + data.id + `" value="` + checkObs + `">
             </div>
 
             <div class="form-group col mt-4">

@@ -36,7 +36,7 @@
                     </table>
                 </div>
                 <div id="customer-info">
-                    <input class="form-control border border-danger" type="text" placeholder="Nome do cliente" id="customer-name">
+                    <input class="form-control border border-danger" autocomplete="off" type="text" placeholder="Nome do cliente" id="customer-name">
                     <div id="resultsSearch">
 
                     </div>

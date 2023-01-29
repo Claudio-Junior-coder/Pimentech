@@ -33,11 +33,12 @@
                                 {{-- Table head --}}
                                 <thead class="table-head">
                                     <tr>
+                                        <th>Cód</th>
                                         <th>Descritivo</th>
                                         <th>Marca</th>
                                         <th>Unid</th>
-                                        <th>Qntd</th>
-                                        <th>Valor Venda (unit.)</th>
+                                        <th>Stock</th>
+                                        <th>Valor Custo (unit.)</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -46,6 +47,7 @@
                                 <tbody>
                                     @foreach($data as $product)
                                     <tr>
+                                        <td>{{$product->cod}}</td>
                                         <td>{{mb_strimwidth($product->name, 0, 50, "...")}}</td>
                                         <td>{{$product->brand}}</td>
                                         <td>{{$product->um}}</td>

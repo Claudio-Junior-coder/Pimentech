@@ -18,6 +18,7 @@ class Customers extends Model
         'email',
         'state',
         'draft',
+        'cod',
         'created_at',
         'updated_at',
     ];

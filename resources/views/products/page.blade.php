@@ -34,15 +34,20 @@
                                 <h5 style="color: #0069D9;">Informações básicas</h5>
                             </div>
                             <div class="form-row w-100">
+                                <div class="form-group col">
+                                    <label>Código</label>
+                                    <input type="text" name="cod" value="{{ $data['cod'] }}"
+                                    class="form-control" placeholder="Código" autocomplete="off">
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label for="name">Nome/Descritivo</label>
                                     <input class="form-control" name="name" id="name" placeholder="Descritivo"
-                                        value="{{ $data['name'] }}">
+                                        value="{{ $data['name'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="brand">Marca</label>
                                     <input type="text" class="form-control" name="brand" id="brand" placeholder="Marca"
-                                        value="{{ $data['brand'] }}">
+                                        value="{{ $data['brand'] }}" autocomplete="off">
                                 </div>
                                 <div class="form-group col">
                                     <label for="um">Un</label>
@@ -81,9 +86,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group col">
-                                    <label for="quantity">Quantidade</label>
+                                    <label for="quantity">Stock</label>
                                     <input type="text" name="quantity" class="form-control" id="quantity"
-                                        placeholder="Quantidade" value="{{ $data['quantity'] }}">
+                                        placeholder="Quantidade em stock" value="{{ $data['quantity'] }}" autocomplete="off">
                                 </div>
                                 @if(!PROVIDERS_MODULE)
                                 <div class="form-group col-md-4">
@@ -94,7 +99,7 @@
                                         </div>
                                         <input type="tel" name="price"
                                             onkeypress="$(this).mask('#.##0,00', {reverse: true});" class="form-control"
-                                            placeholder="Valor (unit.)" value="{{ $data['price'] }}">
+                                            placeholder="Valor (unit.)" value="{{ $data['price'] }}" autocomplete="off">
                                     </div>
                                 </div>
                                 @endif
@@ -102,13 +107,12 @@
                                     <label>Peso</label>
                                     <div class="input-group">
                                         <input type="text" name="weight" value="{{ $data['weight'] }}"
-                                            class="form-control" placeholder="Peso (opcional)">
+                                            class="form-control" placeholder="Peso (opcional)" autocomplete="off">
                                         <div class="input-group-append">
                                             <span class="input-group-text">Kg</span>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
                             <input type="hidden" name="draft" value="0">

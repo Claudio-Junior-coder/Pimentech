@@ -34,7 +34,7 @@
                                     background-color: #ffdba1;
                                     ">
                                     <tr>
-                                        <th>#</th>
+                                        <th>Cód</th>
                                         <th>Nome</th>
                                         <th>Telefone</th>
                                         <th>Cidade</th>
@@ -47,7 +47,7 @@
                                 <tbody>
                                     @foreach($data as $k => $customer)
                                     <tr>
-                                        <td>{{$k + 1}}</td>
+                                        <td>{{$customer->cod}}</td>
                                         <td>{{$customer->name}}</td>
                                         <td>{{$customer->phone}}</td>
                                         <td>{{$customer->city}} - {{$customer->state}}</td>

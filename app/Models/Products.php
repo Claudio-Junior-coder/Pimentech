@@ -20,6 +20,7 @@ class Products extends Model
         'price',
         'weight',
         'draft',
+        'cod',
         'created_at',
         'updated_at',
         'deleted_at',

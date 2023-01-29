@@ -3,24 +3,50 @@
         <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h4 class="modal-title"><i class="fas fa-cart-plus"></i> Adicionar este produto ao carrinho</h4>
+            <h4 class="modal-title"><i class="fas fa-cart-plus"></i> Adicionar este produto ao orçamento</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <input id="add-cart-product-id" type="hidden" name="id">
             </div>
             <div class="modal-body">
-                <p><b>Descritivo:</b> <span id="nameProduct"></span></p>
-                <p><b>Peso:</b> <span id="weightProduct"></span></p>
-                <p><b>Unid:</b> <span id="unProduct"></span></p>
+                <div class="row">
+                    <div class="col-12">
+                        <p><b>Descritivo:</b> <span id="nameProduct"></span></p>
+                        <p><b>Peso:</b> <span id="weightProduct"></span></p>
+                        <p><b>Unid:</b> <span id="unProduct"></span></p>
 
-                <p>Indique a quantidade e selecione o <b>SBR</b> desejado:</p>
-                <input type="number" class="form-control" min="0" id="qntd-budget" placeholder="Quantidade">
-                <br>
-                <select class="form-control" name="sbr-selected" id="sbr-selected">
+                        <p>Selecione o <b>SBR</b> e indique a quantidade desejada:</p>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <select class="form-control calculate-profit-percentage" name="sbr-selected" id="sbr-selected">
 
-                </select>
-                <div class="msg mt-3"></div>
+                        </select>
+                        <div class="msg mt-3"></div>
+                    </div>
+                    <div class="col">
+                        <label for="">Qntd:</label>
+                        <input type="number" class="form-control calculate-profit-percentage" min="0" id="qntd-budget" placeholder="Quantidade">
+                    </div>
+                    <div class="col">
+                        <label for="">Lucro (%):</label>
+                        <div class="input-group">
+                            <input type="number" id="profitVal" class="form-control calculate-profit-percentage" placeholder="Valor (unit.)">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="">Total (Unit):</label>
+                        <input type="text" class="form-control" min="0" data-value="0" id="resultUnit" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">Total:</label>
+                        <input type="text" class="form-control" min="0" data-value="0" id="result" disabled>
+                    </div>
+                    <br>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
@@ -38,10 +64,65 @@
 
             $('#add-to-cart').modal('hide');
 
+            $('body').on('change', '.calculate-profit-percentage', function (e) {
+                let id = $(this).attr('id');
+                calculatePriceToSale(id);
+            })
+
+            function calculatePriceToSale(id) {
+
+                //get field values
+                let costPrice = $('#sbr-selected').val().replace('R$', '').replace('.', '').replace(',', '.');
+                let profitVal = parseFloat($('#profitVal').val().replace(',', '.')) + 100;
+                let qntdSelected = $('#qntd-budget').val() == '' ? '0' : $('#qntd-budget').val();
+                let salePriceUnit = 0;
+                let salePrice = 0;
+
+
+                //check if field is empty
+                if (Number(qntdSelected) !== Number(qntdSelected)){
+                    qntdSelected = 0;
+                }
+
+                if (Number(profitVal) !== Number(profitVal)){
+                    profitVal = 100;
+                }
+
+                console.log(costPrice)
+                console.log(profitVal)
+                console.log(qntdSelected)
+                //calculate
+                let productWithProfit = costPrice * (profitVal / 100);
+
+                salePriceUnit = productWithProfit;
+                salePrice = productWithProfit * qntdSelected;
+
+                if(salePrice == 0) {
+                    salePrice = costPrice;
+                }
+
+                if(salePriceUnit == 0) {
+                    salePriceUnit = costPrice;
+                }
+
+                $('#resultUnit').attr('data-value', salePriceUnit)
+                $('#resultUnit').val(parseFloat(salePriceUnit).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }))
+
+                $('#result').attr('data-value', salePrice)
+                $('#result').val(parseFloat(salePrice).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }))
+
+            }
+
             $('body').on('click', '.add-to-cart', function (e) {
 
-                $('#sbr-selected').html('');
+                $('#sbr-selected').html('<option value="" selected>--- SELECIONE UM SBR ---</option>');
                 $('.msg').html('');
+                $('#qntd-budget').val('');
+                $('#profitVal').val('');
+                $('#result').val('');
+                $('#result').data('value', '');
+                $('#resultUnit').val('');
+                $('#resultUnit').data('value', '');
 
                 let maxQntd = $(this).attr('data-qnt');
                 let nameProduct = $(this).attr('data-name');
@@ -67,7 +148,7 @@
                         data.forEach(function (element) {
                             if(element.provider_name != undefined) {
                                 $('#sbr-selected').append(`
-                                    <option value="`+ element.budget_sale_price +`">Fornecedor: `+ element.provider_name[0].name +` | Preço de Venda: `+ element.budget_sale_price +`</option>
+                                    <option value="`+ element.cost_price +`">Fornecedor: `+ element.provider_name[0].name +` | Preço de Custo: `+ element.cost_price +`</option>
                                 `);
                             }
                         })
@@ -84,9 +165,8 @@
                 let itemsName = [$('#nameProduct').text()];
                 let itemsUn = [$('#unProduct').text()];
                 let itemsQnt = [$('#qntd-budget').val()];
-                let itemPrice = $('#sbr-selected').val().replace('R$', '').replace('.', '').replace(',', '.');
-                let itemsPrice = [$('#sbr-selected').val()];
-                let itemPriceTotal = [(itemPrice * itemsQnt).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })];
+                let itemsPrice = [$('#resultUnit').val()];
+                let itemPriceTotal = [$('#result').val()];
                 $('.msg').html('');
 
                 if(itemsQnt <= 0) {
