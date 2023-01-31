@@ -21,6 +21,7 @@ class Products extends Model
         'weight',
         'draft',
         'cod',
+        'min_stock',
         'created_at',
         'updated_at',
         'deleted_at',

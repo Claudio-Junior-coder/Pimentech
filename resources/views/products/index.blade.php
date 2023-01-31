@@ -46,12 +46,18 @@
 
                                 <tbody>
                                     @foreach($data as $product)
+                                    @php
+                                        $stockVar = "";
+                                        if($product->min_stock != 9999) {
+                                            $stockVar = $product->quantity <= $product->min_stock ? 'color: #C82333;' : "";
+                                        }
+                                    @endphp
                                     <tr>
                                         <td>{{$product->cod}}</td>
                                         <td>{{mb_strimwidth($product->name, 0, 50, "...")}}</td>
                                         <td>{{$product->brand}}</td>
                                         <td>{{$product->um}}</td>
-                                        <td>{{$product->quantity}}</td>
+                                        <td style="{{$stockVar}}" data-min="{{$product->min_stock}}" class="min-stock">{{$product->quantity}}</td>
                                         <td>{{$product->price}}</td>
                                         <td>
                                             <a class="btn btn-success rounded-circle add-to-cart" role="button"
@@ -105,6 +111,15 @@
                                 setTimeout(function () {
                                     $('input[type="search"]').attr("placeholder", "Digite aqui para pesquisar...");
                                 }, 1500)
+
+                                $(".min-stock").click(function () {
+
+                                    let currentStock = $(this).text();
+                                    let minStock = $(this).data('min');
+                                    $(this).text(minStock);
+                                    $(this).data('min', currentStock);
+
+                                });
 
                             })
 

@@ -41,6 +41,8 @@ Route::post('/products/edit', [productsController::class, 'edit'])->name('produc
 Route::post('/products/delete', [productsController::class, 'delete'])->name('products.delete')->middleware('auth');
 
 
+Route::get('/products/check/min-stock', [productsController::class, 'checkMinStock'])->name('products.check.min.stock')->middleware('auth');
+
 //sbr
 Route::post('/sbr/create', [sbrController::class, 'create'])->name('sbr.create')->middleware('auth');
 

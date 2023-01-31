@@ -126,4 +126,8 @@ class Controller extends BaseController
         return $resultado;
 
     }
+
+    public function reportError ($error) {
+        return redirect()->route('home', ['message' => $error]);
+    }
 }

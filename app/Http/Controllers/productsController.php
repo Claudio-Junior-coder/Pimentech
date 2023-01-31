@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Sbr;
 use App\Models\Products;
+use App\Http\Controllers\mailController;
 use Symfony\Component\HttpFoundation\Request;
 
 class productsController extends Controller
 {
+    private $token;
+    public function __construct() {
+        $this->token = "POLIIYSAJ16541651QWERTU";
+    }
+
     public function index () {
         $data = Products::where('draft', 0)->get();
         return view('products.index', compact('data'));
@@ -72,6 +78,24 @@ class productsController extends Controller
 
         return redirect()->route('products.index', ['message' => 'Produto deletado com sucesso!']);
 
+    }
+
+    public function checkMinStock (Request $request) {
+
+        $data = $request->all();
+
+        if($data['token'] == $this->token) {
+            $products = Products::where('draft', 0)->where('quantity', '<=', 'min_stock')->where('min_stock', '!=', 9999)->get();
+
+            if($products != null) {
+                mailController::sendMail(compact('products'), 'mail-layouts/min-stock', env('MAIL_CLIENT'), env('MAIL_CLIENT_USERNAME'), 'Alerta de stock');
+                return json_encode(["success" => true, "message" => "E-mail sended with success!"]);
+            }
+
+            return json_encode(["success" => false, "message" => "Something went wrong."]);
+        }
+
+        return json_encode(["success" => false, "message" => "Token code is wrong."]);
     }
 
 }

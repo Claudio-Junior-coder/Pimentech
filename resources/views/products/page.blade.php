@@ -31,14 +31,24 @@
                         <form action="{{ route('products.edit')}}" method="POST" id="product-form">
                             @csrf
                             <div class="form-row mb-3 w-100">
-                                <h5 style="color: #0069D9;">Informações básicas</h5>
+                                <h5 style="color: #0069D9;">Controle interno</h5>
                             </div>
-                            <div class="form-row w-100">
-                                <div class="form-group col">
+                            <div class="form-row w-100 mb-3">
+                                <div class="form-group col-2">
                                     <label>Código</label>
                                     <input type="text" name="cod" value="{{ $data['cod'] }}"
                                     class="form-control" placeholder="Código" autocomplete="off">
                                 </div>
+                                <div class="form-group col-2">
+                                    <label>Stock minimo</label>
+                                    <input type="text" name="min_stock" value="{{ $data['min_stock'] }}"
+                                    class="form-control" placeholder="Código" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-row mb-3 w-100">
+                                <h5 style="color: #0069D9;">Informações básicas</h5>
+                            </div>
+                            <div class="form-row w-100">
                                 <div class="form-group col-md-6">
                                     <label for="name">Nome/Descritivo</label>
                                     <input class="form-control" name="name" id="name" placeholder="Descritivo"
