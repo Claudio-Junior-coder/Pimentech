@@ -13,9 +13,7 @@ class Controller extends BaseController
 
     public static function valorPorExtenso( $valor = 0, $bolExibirMoeda = true, $bolPalavraFeminina = false )
     {
-
         $valor = self::removerFormatacaoNumero( $valor );
-
         $singular = null;
         $plural = null;
 
@@ -101,7 +99,6 @@ class Controller extends BaseController
 
     public static function removerFormatacaoNumero( $strNumero )
     {
-
         $strNumero = trim( str_replace( "R$", null, $strNumero ) );
 
         $vetVirgula = explode( ",", $strNumero );
@@ -122,8 +119,8 @@ class Controller extends BaseController
         $acentos = array(".");
         $resultado = str_replace( $acentos, "", $strNumero );
         $resultado = $resultado . "." . $strDecimal;
-
-        return $resultado;
+        $newResult = preg_replace('/^\p{Z}+|\p{Z}+$/u', '', $resultado);
+        return (float) $newResult;
 
     }
 

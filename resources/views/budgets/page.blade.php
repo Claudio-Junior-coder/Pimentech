@@ -16,10 +16,11 @@
                 estoque</button>
             @endif
             @if($budget['pdf_was_generated'] == 0)
-                <button type="button" class="btn btn-primary generate-pdf" data-id="{{$budget['id']}}">Gerar PDF</a>
+                <button type="button" class="btn btn-info generate-pdf mr-2 " data-id="{{$budget['id']}}">Gerar PDF</a>
             @else
-                <a href="{{ route('budgets.pdf', $budget['id'])}}" target="_blank" class="btn btn-primary">Visualizar PDF</a>
+                <a href="{{ route('budgets.pdf', $budget['id'])}}" target="_blank" class="btn btn-primary mr-2 ">Visualizar PDF</a>
             @endif
+            <button type="button" class="btn btn-primary" id="save-budget">Salvar alterações</a>
         </div>
     </div>
 </div>
@@ -34,7 +35,7 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <form action="" method="POST" id="budget-form">
+                        <form action="{{ route('budgets.edit')}}" method="POST" id="budget-form">
                             @csrf
                             <div class="form-row mb-3">
                                 <h5 style="color: #0069D9;">Informações do cliente</h5>
@@ -45,30 +46,31 @@
                                         <span class="input-group-text bg-dark">Cliente: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_name']}}"
-                                        disabled>
+                                        name="customer_name">
                                 </div>
                                 <div class="input-group col-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Fone: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_phone']}}"
-                                        disabled>
+                                        name="customer_phone">
                                 </div>
                             </div>
+                            <input type="hidden" name="id" value="{{$budget['id']}}">
                             <div class="form-row mb-2">
                                 <div class="input-group col-8">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Fone A/C: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['second_customer_phone']}}"
-                                        disabled>
+                                        name="second_customer_phone">
                                 </div>
                                 <div class="input-group col-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">CNPJ: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_cnpj']}}"
-                                        disabled>
+                                        name="customer_cnpj">
                                 </div>
                             </div>
                             <div class="form-row mb-2">
@@ -77,21 +79,21 @@
                                         <span class="input-group-text bg-dark">Cidade: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_city']}}"
-                                        disabled>
+                                        name="customer_city">
                                 </div>
                                 <div class="input-group col-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Estado: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_state']}}"
-                                        disabled>
+                                        name="customer_state">
                                 </div>
                                 <div class="input-group col-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">E-mail: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_email']}}"
-                                        disabled>
+                                        name="customer_email">
                                 </div>
                             </div>
                             <div class="form-row mb-2">
@@ -100,7 +102,7 @@
                                         <span class="input-group-text bg-dark">End. Entrega: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_address_to_shipping']}}"
-                                        disabled>
+                                        name="customer_address_to_shipping">
                                 </div>
                             </div>
                             <div class="form-row mb-3 mt-5">
@@ -113,7 +115,7 @@
                                             <span class="input-group-text bg-dark">Aos Cuidados de: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['customer_a_c']}}"
-                                            disabled>
+                                            name="customer_a_c">
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
@@ -122,14 +124,14 @@
                                             <span class="input-group-text bg-dark">Cond. Pagamento: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['condition_payment']}}"
-                                            disabled>
+                                            name="condition_payment">
                                     </div>
                                     <div class="input-group col-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Prazo Entrega: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['time']}}"
-                                            disabled>
+                                            name="time">
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
@@ -138,14 +140,14 @@
                                             <span class="input-group-text bg-dark">Endereço de Entrega: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['address_to_shipping']}}"
-                                            disabled>
+                                            name="address_to_shipping">
                                     </div>
                                     <div class="input-group col-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Inspeção: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['inspection']}}"
-                                            disabled>
+                                            name="inspection">
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
@@ -154,7 +156,7 @@
                                             <span class="input-group-text bg-dark">Valor total por escrito: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['price_in_string']}}"
-                                            disabled>
+                                            name="price_in_string">
                                     </div>
                                 </div>
                             @endif
@@ -178,19 +180,21 @@
                                             <th scope="col">Unid</th>
                                             <th scope="col">Valor (unit.)</th>
                                             <th scope="col">Total</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
 
 
-                                    <tbody id="items-cart">
+                                    <tbody id="items-budget">
                                         @foreach($budgetItems as $k => $item)
-                                        <tr>
+                                        <tr id="{{$item->id}}">
                                             <td>{{$k + 1}}</td>
                                             <td>{{$item->product_name}}</td>
                                             <td>{{$item->quantity}}</td>
                                             <td>{{$item->um}}</td>
                                             <td>{{$item->price}}</td>
                                             <td>{{$item->total_price}}</td>
+                                            <td><a class="ml-2 remove-item-from-budget" data-id="{{$item->id}}" role="button" style="color: #C82333;"><i class="fas fa-minus-circle"></i></a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -209,15 +213,38 @@
 <x-modal-to-generate-pdf />
 @push('js')
 <script>
-    $("#budget-user").click(function () {
-        $("#budget-form").submit();
-    });
-
-
 
     $(".generate-pdf").click(function () {
         $("#price_in_string").val("{{$budget['totalWithoutCharacters']}}");
     });
+
+
+    $("#save-budget").click(function () {
+        $("#budget-form").submit();
+    });
+
+    $('body').on('click', '.remove-item-from-budget', function (e) {
+
+        let itemId = $(this).attr('data-id');
+
+        if(itemId != null) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name=_token]').val()
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                data: {id: itemId},
+                url: "/budgets/item/delete",
+                success: function (data) {
+                    $('#items-budget #' + itemId).remove();
+                }
+            });
+        }
+
+    });
+
 </script>
 @endpush
 @stop

@@ -40,6 +40,23 @@ class budgetsController extends Controller
         $budgetId = Budgets::create($budget)->id;
 
         $items = json_decode($request->all()['data'], true);
+
+        BudgetsItems::insert($this->addNewItems($items, $budgetId));
+
+        return ['id' => $budgetId];
+
+    }
+
+    public function addBudgetItem (Request $request) {
+
+        $items = json_decode($request->all()['data'], true);
+
+        BudgetsItems::insert($this->addNewItems($items, $request->all()['budget_id']));
+
+        return ['id' => $request->all()['budget_id']];
+    }
+
+    public function addNewItems ($items, $budgetId) {
         $newItems = array();
         foreach ($items as $key => $item) {
             $newItems[$key]['budget_id'] = $budgetId;
@@ -51,9 +68,19 @@ class budgetsController extends Controller
             $newItems[$key]['total_price'] = $item['priceTotal'];
         }
 
-        BudgetsItems::insert($newItems);
+        return $newItems;
+    }
 
-        return ['id' => $budgetId];
+    public function edit (Request $request) {
+
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['id']);
+
+        Budgets::where('id', $request->all()['id'])->update($data);
+
+
+        return redirect()->route('budgets.view', ['id' => $request->all()['id'], 'message' => 'Orçamento salvo com sucesso!']);
 
     }
 
@@ -63,7 +90,18 @@ class budgetsController extends Controller
 
         $budgetItems = BudgetsItems::where('budget_id', $id)->get();
 
-        $budget->totalWithoutCharacters = strtoupper($this->valorPorExtenso($budget->total, true, false));
+        (float) $newTotal = 0;
+        foreach($budgetItems as $budgetItem) {
+            $result = $this->removerFormatacaoNumero( $budgetItem->total_price );
+            $newTotal += $result;
+        }
+
+        $budget->total = 'R$ ' . number_format($newTotal, 2, ',', '.');
+
+        $priceInString = strtoupper($this->valorPorExtenso($budget->total, true, false));
+
+        $budget->price_in_string = $priceInString;
+        $budget->totalWithoutCharacters = $priceInString;
 
         return view('budgets.page', compact('budgetItems', 'budget'));
 
@@ -123,6 +161,28 @@ class budgetsController extends Controller
         Budgets::where('id', $data['id'])->update($data);
 
         return redirect()->route('budgets.view', ['id' => $data['id'], 'message' => 'O processo de baixa no estoque foi concluído!']);
+    }
+
+
+    public function deleteBudgetItem (Request $request) {
+
+        if(!isset($request->all()['id'])) {
+            return redirect()->back()->with('message', 'Ops! o id informado não existe.');
+        }
+
+        BudgetsItems::where('id', $request->all()['id'])->delete();
+
+        return ['success' => true];
+
+    }
+
+    public function search () {
+
+        if(isset($_GET['search'])) {
+            $budgets = Budgets::where('number', 'LIKE', '%'. $_GET['search'] .'%')->get();
+
+            return $budgets;
+        }
     }
 
 }

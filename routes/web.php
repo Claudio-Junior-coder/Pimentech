@@ -92,14 +92,21 @@ Route::get('/budgets', [budgetsController::class, 'index'])->name('budgets.index
 
 Route::get('/budgets/view/{id}', [budgetsController::class, 'view'])->name('budgets.view')->middleware('auth');
 
+Route::post('/budgets/edit', [budgetsController::class, 'edit'])->name('budgets.edit')->middleware('auth');
+
 Route::get('/budgets/pdf/{id}', [budgetsController::class, 'pdf'])->name('budgets.pdf')->middleware('auth');
 
 Route::post('/budgets/create', [budgetsController::class, 'create'])->name('budgets.create')->middleware('auth');
+
+Route::post('/budgets/item/delete', [budgetsController::class, 'deleteBudgetItem'])->name('budgets.item.delete')->middleware('auth');
+
+Route::post('/budgets/items/add', [budgetsController::class, 'addBudgetItem'])->name('budgets.item.add')->middleware('auth');
 
 Route::post('/budgets/create/pdf', [budgetsController::class, 'createPdf'])->name('budgets.create.pdf')->middleware('auth');
 
 Route::post('/budgets/low/stock', [budgetsController::class, 'lowStock'])->name('budgets.low.stock')->middleware('auth');
 
+Route::get('/budgets/search', [budgetsController::class, 'search'])->name('budgets.search')->middleware('auth');
 
 //clientes
 Route::get('/customers', [CustomersController::class, 'index'])->name('customers.index')->middleware('auth');

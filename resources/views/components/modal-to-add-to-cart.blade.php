@@ -22,7 +22,6 @@
                         <select class="form-control calculate-profit-percentage" name="sbr-selected" id="sbr-selected">
 
                         </select>
-                        <div class="msg mt-3"></div>
                     </div>
                     <div class="col">
                         <label for="">Qntd:</label>
@@ -47,6 +46,7 @@
                     </div>
                     <br>
                 </div>
+                <div class="msg mt-3"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
@@ -173,6 +173,15 @@
                     $('.msg').html(`
                         <div class="alert alert-warning" role="alert">
                             A quantidade precisa ser informada.
+                        </div>
+                    `);
+                    return false;
+                }
+
+                if( $('#profitVal').val().length <= 0 ) {
+                    $('.msg').html(`
+                        <div class="alert alert-warning" role="alert">
+                            A porcetagem de lucro precisa ser informada.
                         </div>
                     `);
                     return false;
