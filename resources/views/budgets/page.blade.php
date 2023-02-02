@@ -8,9 +8,12 @@
         <div class="d-flex align-items-center">
             <a href="{{ route('budgets.index')}}"><i class="fa fa-chevron-circle-left" aria-hidden="true"
                     style="font-size: 30px;"></i></a>
-            <h1 class="m-0 text-dark ml-2">Visualizar Orçamento</h1>
+            <h1 class="m-0 text-dark ml-2">Orçamento - {{$budget['number']}}</h1>
         </div>
         <div>
+            @if(auth()->user()->type == 1)
+                <a href="{{ route('budgets.historic', $budget['id'])}}" target="_blank" class="btn btn-dark mr-2 ">Histórico</a>
+            @endif
             @if($budget['low_stock'] == 0)
             <button type="button" class="btn btn-warning mr-2 low-in-stock" data-id="{{$budget['id']}}">Dar baixa no
                 estoque</button>

@@ -7,7 +7,9 @@ use App\Models\Products;
 use App\Models\Customers;
 use App\Models\BudgetsItems;
 use Illuminate\Http\Request;
+use App\Models\BudgetHistories;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\BudgetItemsHistories;
 use Illuminate\Support\Facades\Auth;
 
 class budgetsController extends Controller
@@ -77,10 +79,58 @@ class budgetsController extends Controller
         unset($data['_token']);
         unset($data['id']);
 
+        //prepare the historic
+        $budget = Budgets::where('id', $request->all()['id'])->get()->first()->toArray();
+
+        $newBudget = $this->prepareToHistoric($budget);
+        $newBudget['made_by'] = auth()->user()->name;
+        //create historic
+        $id = BudgetHistories::create($newBudget)->id;
+
+        $budgetItems = BudgetsItems::where('budget_id', $request->all()['id'])->get()->toArray();
+        $newBudgetItems = [];
+        foreach($budgetItems as $budgetItem) {
+            $newBudgetItems[] = $this->prepareToHistoric($budgetItem, $id);
+        }
+
+        BudgetItemsHistories::insert($newBudgetItems);
+
+        //update
         Budgets::where('id', $request->all()['id'])->update($data);
 
-
         return redirect()->route('budgets.view', ['id' => $request->all()['id'], 'message' => 'Orçamento salvo com sucesso!']);
+
+    }
+
+    public function prepareToHistoric ($budget, $isItem = 0) {
+
+
+        $newBudget = $budget;
+
+        if($isItem != 0) {
+            $newBudget['budget_id'] = $isItem;
+        } else {
+            $newBudget['budget_id'] = $newBudget['id'];
+        }
+        unset($newBudget['id']);
+        unset($newBudget['created_at']);
+        unset($newBudget['updated_at']);
+
+        return $newBudget;
+    }
+
+    public function historic ($id) {
+        if(auth()->user()->type == 1) {
+            $budgets = BudgetHistories::where('budget_id', $id)->get();
+
+            foreach($budgets as $bdg) {
+                $bdg->items = BudgetItemsHistories::where('budget_id', $bdg->id)->get();
+            }
+
+            return view('budgets.historic.index', compact('budgets'));
+        }
+
+        return view('404');
 
     }
 

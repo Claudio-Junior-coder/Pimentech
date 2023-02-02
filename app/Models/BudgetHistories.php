@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Budgets extends Model
+class BudgetHistories extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'customer_name',
+        'budget_id',
         'user_name',
         'total',
+        'total_weight',
+        'made_by',
         'number',
         'condition_payment',
         'inspection',
-        'total_weight',
         'address_to_shipping',
         'time',
         'price_in_string',
@@ -30,6 +32,8 @@ class Budgets extends Model
         'customer_state',
         'pdf_was_generated',
         'second_customer_phone',
+        'created',
+        'updated',
         'created_at',
         'updated_at',
     ];

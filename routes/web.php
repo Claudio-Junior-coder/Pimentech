@@ -108,6 +108,8 @@ Route::post('/budgets/low/stock', [budgetsController::class, 'lowStock'])->name(
 
 Route::get('/budgets/search', [budgetsController::class, 'search'])->name('budgets.search')->middleware('auth');
 
+Route::get('/budgets/historic/{id}', [budgetsController::class, 'historic'])->name('budgets.historic')->middleware('auth');
+
 //clientes
 Route::get('/customers', [CustomersController::class, 'index'])->name('customers.index')->middleware('auth');
 

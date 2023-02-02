@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class BudgetsItems extends Model
+class BudgetItemsHistories extends Model
 {
     use HasFactory;
 
@@ -17,10 +17,11 @@ class BudgetsItems extends Model
         'quantity',
         'price',
         'um',
-        'weight',
         'total_price',
+        'created',
+        'updated',
+        'weight',
         'created_at',
         'updated_at',
     ];
-
 }
