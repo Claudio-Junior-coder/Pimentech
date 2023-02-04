@@ -13,6 +13,8 @@ class Budgets extends Model
         'customer_name',
         'user_name',
         'total',
+        'date',
+        'obs_internal',
         'number',
         'condition_payment',
         'inspection',

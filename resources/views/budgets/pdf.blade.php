@@ -56,7 +56,7 @@
                     </td>
                     <td>
                         <div class="ordernumber">
-                            <p><b>DATA: </b>{{date('d/m/Y')}}</p>
+                            <p><b>DATA: </b>{{$budget['date']}}</p>
                             <p><b>Nº ORÇAMENTO: </b>{{$budget['number']}}</p>
                             <p><b>VALIDADE PROPOSTA: </b>5 DIAS</p>
                             <p><b>VENDEDOR: </b>{{$budget['user_name']}}</p>

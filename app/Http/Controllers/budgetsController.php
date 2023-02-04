@@ -177,7 +177,7 @@ class budgetsController extends Controller
 
         $budgetItems = BudgetsItems::where('budget_id', $id)->get();
 
-        $fileName = 'Orçamento-' . $budget->customer_name . '-' . date('d-m-Y');
+        $fileName = 'Orçamento-' . $budget->customer_name . '-' . $budget->number;
 
         $pdf = Pdf::loadView('budgets.pdf', compact('budgetItems', 'budget', 'fileName'));
 

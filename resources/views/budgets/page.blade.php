@@ -111,6 +111,29 @@
                             <div class="form-row mb-3 mt-5">
                                 <h5 style="color: #0069D9;">Informações do orçamento</h5>
                             </div>
+                            <div class="form-row mb-2">
+                                <div class="input-group col-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-dark">Nº: </span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$budget['number']}}"
+                                        name="number">
+                                </div>
+                                <div class="input-group col-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-dark">Data: </span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$budget['date']}}"
+                                        name="date">
+                                </div>
+                                <div class="input-group col-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-dark">Obs Interna: </span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$budget['obs_internal']}}"
+                                        name="obs_internal">
+                                </div>
+                            </div>
                             @if($budget['pdf_was_generated'] == 1)
                                 <div class="form-row mb-2">
                                     <div class="input-group col-12">
