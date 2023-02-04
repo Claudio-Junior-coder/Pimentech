@@ -16,20 +16,23 @@ class usersController extends Controller
     }
 
     public function create (Request $request) {
+        if(auth()->user()->type == 1) {
+            $user = User::where('draft', 1)->first();
 
-        $user = User::where('draft', 1)->first();
+            if($user == null || empty($user)) {
+                $id = User::create(['name' => 'Nome não informado.',
+                'email' => 'exemplo@claudiopimentel.com',
+                'password' => Hash::make('NewJunior@2000???'),
+                'draft' => 1,
+                'type' => 0])->id;
 
-        if($user == null || empty($user)) {
-            $id = User::create(['name' => 'Nome não informado.',
-            'email' => 'exemplo@claudiopimentel.com',
-            'password' => Hash::make('NewJunior@2000???'),
-            'draft' => 1,
-            'type' => 0])->id;
+                return redirect()->route('user.update', ['id' => $id]);
+            }
 
-            return redirect()->route('user.update', ['id' => $id]);
+            return redirect()->route('user.update', ['id' => $user->id]);
+        } else {
+            return abort(404);
         }
-
-        return redirect()->route('user.update', ['id' => $user->id]);
 
     }
 
@@ -89,13 +92,17 @@ class usersController extends Controller
 
     public function delete (Request $request) {
 
-        if(!isset($request->all()['id'])) {
-            return redirect()->back()->with('message', 'Ops! o id informado não existe.');
+        if(auth()->user()->type == 1) {
+            if(!isset($request->all()['id'])) {
+                return redirect()->back()->with('message', 'Ops! o id informado não existe.');
+            }
+
+            User::where('id', $request->all()['id'])->delete();
+
+            return redirect()->route('user.index', ['message' => 'Usuário deletado com sucesso!']);
+        } else {
+            return abort(404);
         }
-
-        User::where('id', $request->all()['id'])->delete();
-
-        return redirect()->route('user.index', ['message' => 'Usuário deletado com sucesso!']);
 
     }
 

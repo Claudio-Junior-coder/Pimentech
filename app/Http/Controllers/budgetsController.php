@@ -9,7 +9,6 @@ use App\Models\BudgetsItems;
 use Illuminate\Http\Request;
 use App\Models\BudgetHistories;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\BudgetItemsHistories;
 use Illuminate\Support\Facades\Auth;
 
 class budgetsController extends Controller
@@ -53,12 +52,12 @@ class budgetsController extends Controller
 
         $items = json_decode($request->all()['data'], true);
 
-        BudgetsItems::insert($this->addNewItems($items, $request->all()['budget_id']));
+        BudgetsItems::insert($this->addNewItems($items, $request->all()['budget_id'], true));
 
         return ['id' => $request->all()['budget_id']];
     }
 
-    public function addNewItems ($items, $budgetId) {
+    public function addNewItems ($items, $budgetId, $doHistoric = false) {
         $newItems = array();
         foreach ($items as $key => $item) {
             $newItems[$key]['budget_id'] = $budgetId;
@@ -68,6 +67,15 @@ class budgetsController extends Controller
             $newItems[$key]['price'] = $item['price'];
             $newItems[$key]['um'] = $item['um'];
             $newItems[$key]['total_price'] = $item['priceTotal'];
+            if($doHistoric == true) {
+                $historic = [];
+                $historic['budget_id'] = $budgetId;
+                $historic['action'] = 'Item adicionado';
+                $historic['before_info'] = 'N/A';
+                $historic['current_info'] = $item['name'] . ' - Qnt: ' . $item['qnt'] . ' - Preço U: ' . $item['price'] . ' - Um: ' . $item['um'] . ' - Total: ' . $item['priceTotal'];
+                $historic['made_by'] = Auth::user()->name;
+                BudgetHistories::create($historic);
+            }
         }
 
         return $newItems;
@@ -79,21 +87,8 @@ class budgetsController extends Controller
         unset($data['_token']);
         unset($data['id']);
 
-        //prepare the historic
-        $budget = Budgets::where('id', $request->all()['id'])->get()->first()->toArray();
-
-        $newBudget = $this->prepareToHistoric($budget);
-        $newBudget['made_by'] = auth()->user()->name;
         //create historic
-        $id = BudgetHistories::create($newBudget)->id;
-
-        $budgetItems = BudgetsItems::where('budget_id', $request->all()['id'])->get()->toArray();
-        $newBudgetItems = [];
-        foreach($budgetItems as $budgetItem) {
-            $newBudgetItems[] = $this->prepareToHistoric($budgetItem, $id);
-        }
-
-        BudgetItemsHistories::insert($newBudgetItems);
+        $this->createHistoric ($data, $request->all()['id'], 'Edições gerais');
 
         //update
         Budgets::where('id', $request->all()['id'])->update($data);
@@ -102,35 +97,37 @@ class budgetsController extends Controller
 
     }
 
-    public function prepareToHistoric ($budget, $isItem = 0) {
+    public function createHistoric ($data, $budgetId, $action) {
 
+        //get budget
+        $budget = Budgets::where('id', $budgetId)->get()->first()->toArray();
 
-        $newBudget = $budget;
+        foreach($data as $k => $info) {
 
-        if($isItem != 0) {
-            $newBudget['budget_id'] = $isItem;
-        } else {
-            $newBudget['budget_id'] = $newBudget['id'];
+            if(!in_array($info, $budget)) {
+                $historic = [];
+                $historic['budget_id'] = $budgetId;
+                $historic['action'] = $action;
+                $historic['before_info'] = $budget[$k];
+                $historic['current_info'] = $info;
+                $historic['made_by'] = Auth::user()->name;
+                BudgetHistories::create($historic);
+            }
+
         }
-        unset($newBudget['id']);
-        unset($newBudget['created_at']);
-        unset($newBudget['updated_at']);
 
-        return $newBudget;
     }
 
     public function historic ($id) {
         if(auth()->user()->type == 1) {
+
             $budgets = BudgetHistories::where('budget_id', $id)->get();
 
-            foreach($budgets as $bdg) {
-                $bdg->items = BudgetItemsHistories::where('budget_id', $bdg->id)->get();
-            }
+            return view('budgets.historic.index', compact('budgets', 'id'));
 
-            return view('budgets.historic.index', compact('budgets'));
         }
 
-        return view('404');
+        return abort(404);
 
     }
 
@@ -164,6 +161,10 @@ class budgetsController extends Controller
 
         $data['pdf_was_generated'] = 1;
 
+        //create historic
+        $this->createHistoric ($data, $data['id'], 'Editou info que gera o pdf');
+
+        //update
         $budget = Budgets::where('id', $data['id'])->update($data);
 
         return redirect()->route('budgets.view', ['id' => $data['id'], 'message' => 'PDF Gerado com sucesso!']);
@@ -220,7 +221,18 @@ class budgetsController extends Controller
             return redirect()->back()->with('message', 'Ops! o id informado não existe.');
         }
 
+        $item = BudgetsItems::where('id', $request->all()['id'])->get()->first()->toArray();
+
         BudgetsItems::where('id', $request->all()['id'])->delete();
+
+        $historic = [];
+        $historic['budget_id'] = $item['budget_id'];
+        $historic['action'] = 'Item removido';
+        $historic['before_info'] = 'N/A';
+        $historic['current_info'] = $item['product_name'] . ' - Qnt: ' . $item['quantity'] . ' - Preço U: ' . $item['price'] . ' - Um: ' . $item['um'] . ' - Total: ' . $item['total_price'];
+        $historic['made_by'] = Auth::user()->name;
+
+        BudgetHistories::create($historic);
 
         return ['success' => true];
 

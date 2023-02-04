@@ -12,7 +12,7 @@
         </div>
         <div>
             @if(auth()->user()->type == 1)
-                <a href="{{ route('budgets.historic', $budget['id'])}}" target="_blank" class="btn btn-dark mr-2 ">Histórico</a>
+                <a href="{{ route('budgets.historic', $budget['id'])}}" class="btn btn-dark mr-2 ">Histórico</a>
             @endif
             @if($budget['low_stock'] == 0)
             <button type="button" class="btn btn-warning mr-2 low-in-stock" data-id="{{$budget['id']}}">Dar baixa no

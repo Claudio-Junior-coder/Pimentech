@@ -43,7 +43,7 @@
             <tbody>
               <!--   {{ asset('images/jr.png') }} -->
                 <tr class="items">
-                    <td><img src="{{ asset('images/jr.png') }}" width="80px"></td>
+                    <td><img src="#" width="80px"></td>
                     <td style="padding: 0 0 10px 15px;">
                         <h3>POLIHYDRO MATERIAIS HIDRAULICOS LTDA. </h3> <br>
                         <span><b>END:</b> AV. SENADOR CESAR LACERDA DE VERGUEIRO, N° 123, <br>

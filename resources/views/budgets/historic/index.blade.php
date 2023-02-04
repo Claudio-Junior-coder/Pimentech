@@ -6,10 +6,9 @@
 <div class="row">
     <div class="col-12 d-flex justify-content-between top-internal-head">
         <div class="d-flex align-items-center">
-            <h1 class="m-0 text-dark ml-2">Histórico</h1>
-        </div>
-        <div>
-
+            <a href="{{ route('budgets.view', $id)}}"><i class="fa fa-chevron-circle-left" aria-hidden="true"
+                    style="font-size: 30px;"></i></a>
+            <h1 class="m-0 text-dark ml-2">Histórico de edições</h1>
         </div>
     </div>
 </div>
@@ -30,16 +29,16 @@
 
                                 {{-- Table head --}}
                                 <thead style="
-                                    background-color: #218838;
+                                    background-color: #23272B;
                                     color: white;
                                     ">
                                     <tr>
                                         <th>#</th>
-                                        <th>Cliente</th>
-                                        <th>Feito por</th>
-                                        <th>Valor</th>
+                                        <th>Ação</th>
+                                        <th>Info anterior</th>
+                                        <th>Info atual</th>
+                                        <th>Editado por</th>
                                         <th>Data</th>
-                                        <th>Visualizar</th>
                                     </tr>
                                 </thead>
 
@@ -47,14 +46,12 @@
                                 <tbody>
                                     @foreach($budgets as $k => $budget)
                                     <tr>
-                                        <td>{{$k = +1}}</td>
-                                        <td>{{$budget->customer_name}}</td>
+                                        <td>{{$k += 1}}</td>
+                                        <td>{{$budget->action}}</td>
+                                        <td>{{$budget->before_info}}</td>
+                                        <td>{{$budget->current_info}}</td>
                                         <td>{{$budget->made_by}}</td>
-                                        <td>{{$budget->total}}</td>
                                         <td>{{ date('d/m/Y - H:i', strtotime($budget->created_at));}}</td>
-                                        <td><a class="btn btn-info rounded-circle"
-                                                href="{{route('budgets.view', [$budget->id])}}" role="button"><i
-                                                    class="fas fa-eye"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
