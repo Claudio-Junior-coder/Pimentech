@@ -92,6 +92,11 @@ class AppServiceProvider extends ServiceProvider
                     'icon'    => 'fa fa-cog',
                     'submenu' => [
                         [
+                            'text' => 'Sistema',
+                            'url'  => '/settings',
+                            'icon' => 'fa fa-cogs',
+                        ],
+                        [
                             'text' => 'Usuários',
                             'url'  => '/users',
                             'icon'        => 'fas fa-fw fa-user',

@@ -6,8 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\usersController;
 use App\Http\Controllers\budgetsController;
 use App\Http\Controllers\productsController;
-use App\Http\Controllers\providerInfoController;
+use App\Http\Controllers\settingsController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\providerInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('index')->middleware('auth');
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+//settings
+Route::get('/settings', [settingsController::class, 'index'])->name('settings')->middleware('auth');
+
 
 //products
 
