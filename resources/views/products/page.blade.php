@@ -41,8 +41,8 @@
                                 </div>
                                 <div class="form-group col-2">
                                     <label>Stock minimo</label>
-                                    <input type="text" name="min_stock" value="{{ $data['min_stock'] }}"
-                                    class="form-control" placeholder="Código" autocomplete="off">
+                                    <input type="text" name="min_stock" value="@if($data['min_stock'] != '9999'){{ $data['min_stock'] }}@endif"
+                                    class="form-control" placeholder="Informe o stock minimo" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-row mb-3 w-100">
