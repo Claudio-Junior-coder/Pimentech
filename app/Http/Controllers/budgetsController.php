@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budgets;
 use App\Models\Products;
+use App\Models\Settings;
 use App\Models\Customers;
 use App\Models\BudgetsItems;
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ class budgetsController extends Controller
     public function create (Request $request) {
 
         $customer = Customers::where('id', $request->all()['customer_id'])->get()->first();
-
+        $settings = Settings::get(['budget_number', 'id'])->first();
+        $numberBudgetYear = substr($settings->budget_number, -4);
+        $budgetNumber = str_replace($numberBudgetYear, '', $settings->budget_number);
+        $numberBudgetFinal =  str_pad(intval($budgetNumber + 1), 2, '0', STR_PAD_LEFT) . $numberBudgetYear;
         $budget = [
             'total' => $request->all()['total'],
             'customer_name' => $customer->name,
@@ -34,13 +38,15 @@ class budgetsController extends Controller
             'customer_cnpj' => $customer->cnpj,
             'customer_email' => $customer->email,
             'customer_state' => $customer->state,
-            'number' => date('YmdHis'),
+            'number' => $numberBudgetFinal,
             'user_name' => Auth::user()->name
         ];
 
         $budgetId = Budgets::create($budget)->id;
 
         $items = json_decode($request->all()['data'], true);
+
+        Settings::where('id', $settings->id)->update(['budget_number' => $numberBudgetFinal]);
 
         BudgetsItems::insert($this->addNewItems($items, $budgetId));
 
