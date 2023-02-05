@@ -77,9 +77,18 @@
                 let qntdSelected = $('#qntd-budget').val() == '' ? '0' : $('#qntd-budget').val();
                 let salePriceUnit = 0;
                 let salePrice = 0;
-
+                $('.msg').html('');
 
                 //check if field is empty
+                if (Number(costPrice) !== Number(costPrice) || costPrice.length == 0){
+                    costPrice = 0;
+                    $('.msg').html(`
+                        <div class="alert alert-warning" role="alert">
+                            Primeiro selecione um SBR.
+                        </div>
+                    `);
+                }
+
                 if (Number(qntdSelected) !== Number(qntdSelected)){
                     qntdSelected = 0;
                 }
@@ -88,9 +97,6 @@
                     profitVal = 100;
                 }
 
-                console.log(costPrice)
-                console.log(profitVal)
-                console.log(qntdSelected)
                 //calculate
                 let productWithProfit = costPrice * (profitVal / 100);
 
