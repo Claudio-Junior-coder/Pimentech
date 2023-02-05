@@ -32,6 +32,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('aut
 //settings
 Route::get('/settings', [settingsController::class, 'index'])->name('settings')->middleware('auth');
 
+Route::post('/settings/edit', [settingsController::class, 'edit'])->name('settings.edit')->middleware('auth');
+
+Route::post('/settings/report', [settingsController::class, 'report'])->name('settings.report')->middleware('auth');
+
 
 //products
 

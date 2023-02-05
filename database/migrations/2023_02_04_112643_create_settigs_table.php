@@ -16,52 +16,18 @@ class CreateSettigsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('setting')->nullable();
-            $table->string('value')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('company_phone')->nullable();
+            $table->string('company_cnpj')->nullable();
+            $table->string('company_insc')->nullable();
+            $table->string('company_insc_municip')->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('budget_number')->nullable();
+            $table->string('charge_date')->nullable();
             $table->timestamps();
         });
 
-        // Insert some stuff
-        DB::table('settings')->insert(
-            [
-                array(
-                    'setting' => 'company_name',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'company_address',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'company_phone',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'company_cnpj',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'company_insc',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'company_insc_municip',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'company_email',
-                    'value' => ''
-                ),
-                array(
-                    'setting' => 'budget_number',
-                    'value' => date('Y') . '01'
-                ),
-                array(
-                    'setting' => 'charge_date',
-                    'value' => ''
-                )
-            ]
-        );
     }
 
     /**

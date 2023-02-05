@@ -94,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
                         [
                             'text' => 'Sistema',
                             'url'  => '/settings',
-                            'icon' => 'fa fa-cogs',
+                            'icon' => 'fa fa-laptop',
                         ],
                         [
                             'text' => 'Usuários',
