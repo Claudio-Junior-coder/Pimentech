@@ -37,7 +37,7 @@
                                         <th>Ação</th>
                                         <th>Info anterior</th>
                                         <th>Info atual</th>
-                                        <th>Editado por</th>
+                                        <th>Feito por</th>
                                         <th>Data</th>
                                     </tr>
                                 </thead>

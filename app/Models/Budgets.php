@@ -32,6 +32,7 @@ class Budgets extends Model
         'customer_state',
         'pdf_was_generated',
         'second_customer_phone',
+        'parent_id',
         'created_at',
         'updated_at',
     ];

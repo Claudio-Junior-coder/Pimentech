@@ -19,10 +19,11 @@
                 estoque</button>
             @endif
             @if($budget['pdf_was_generated'] == 0)
-                <button type="button" class="btn btn-info generate-pdf mr-2 " data-id="{{$budget['id']}}">Gerar PDF</a>
+                <button type="button" class="btn btn-info generate-pdf mr-2 " data-id="{{$budget['id']}}">Gerar PDF</button>
             @else
                 <a href="{{ route('budgets.pdf', $budget['id'])}}" target="_blank" class="btn btn-primary mr-2 ">Visualizar PDF</a>
             @endif
+            <button class="btn btn-success mr-2 " id="create-rev" data-id="{{$budget['id']}}">Criar revisão</button>
             <button type="button" class="btn btn-primary" id="save-budget">Salvar alterações</a>
         </div>
     </div>
@@ -117,7 +118,7 @@
                                         <span class="input-group-text bg-dark">Nº: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['number']}}"
-                                        name="number">
+                                        name="number" disabled>
                                 </div>
                                 <div class="input-group col-2">
                                     <div class="input-group-prepend">
@@ -193,6 +194,14 @@
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['total']}}" disabled>
                                 </div>
+                                @if(auth()->user()->type == 1)
+                                    <div class="input-group col">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-dark">Responsável: </span>
+                                        </div>
+                                        <input type="text" class="form-control" name="user_name" value="{{$budget['user_name']}}">
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-row">
                                 <table class="table cart-table" style="width:100%">
@@ -237,6 +246,7 @@
 </div>
 <x-modal-to-low-stock />
 <x-modal-to-generate-pdf />
+<x-modal-to-create-rev />
 @push('js')
 <script>
 

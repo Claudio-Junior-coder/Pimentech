@@ -119,6 +119,8 @@ Route::get('/budgets/search', [budgetsController::class, 'search'])->name('budge
 
 Route::get('/budgets/historic/{id}', [budgetsController::class, 'historic'])->name('budgets.historic')->middleware('auth');
 
+Route::post('/budgets/create/rev', [budgetsController::class, 'createRev'])->name('budgets.create.rev')->middleware('auth');
+
 //clientes
 Route::get('/customers', [CustomersController::class, 'index'])->name('customers.index')->middleware('auth');
 
