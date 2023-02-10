@@ -42,6 +42,24 @@
                         <form action="{{ route('budgets.edit')}}" method="POST" id="budget-form">
                             @csrf
                             <div class="form-row mb-3">
+                                <h5 style="color: #0069D9;">Informações da empresa</h5>
+                            </div>
+                            <div class="form-row mb-4">
+                                <div class="input-group col-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-dark">Pela empresa: </span>
+                                    </div>
+                                    <select id="company" name="company_id" class="form-control">
+                                        @foreach($companies as $company)
+                                            @php
+                                                $selected = $budget['company_id'] != null && $budget['company_id'] == $company->id ? 'selected' : '';
+                                            @endphp
+                                            <option value="{{$company->id}}" {{$selected}}>{{$company->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
                                 <h5 style="color: #0069D9;">Informações do cliente</h5>
                             </div>
                             <div class="form-row mb-2">

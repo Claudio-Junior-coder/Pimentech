@@ -5,16 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Settings extends Model
+class Companies extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'company_email',
-        'budget_number',
-        'charge_date',
-        'company_name',
+        'name',
+        'address',
+        'phone',
+        'cnpj',
+        'phone',
+        'insc',
+        'insc_municip',
+        'email',
+        'created_at',
         'updated_at',
-        'deleted_at',
     ];
 }

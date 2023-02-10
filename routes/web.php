@@ -7,6 +7,7 @@ use App\Http\Controllers\usersController;
 use App\Http\Controllers\budgetsController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\settingsController;
+use App\Http\Controllers\companiesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\providerInfoController;
 
@@ -74,6 +75,19 @@ Route::post('/providers-info/edit', [providerInfoController::class, 'edit'])->na
 
 Route::post('/providers-info/delete', [providerInfoController::class, 'delete'])->name('provider.info.delete')->middleware('auth');
 
+
+//companies
+Route::get('/companies', [companiesController::class, 'index'])->name('companies.index')->middleware('auth');
+
+Route::get('/companies/listing', [companiesController::class, 'listing'])->name('companies.listing')->middleware('auth');
+
+Route::get('/companies/create', [companiesController::class, 'create'])->name('companies.create')->middleware('auth');
+
+Route::get('/companies/update/{id}', [companiesController::class, 'update'])->name('companies.update')->middleware('auth');
+
+Route::post('/companies/edit', [companiesController::class, 'edit'])->name('companies.edit')->middleware('auth');
+
+Route::post('/companies/delete', [companiesController::class, 'delete'])->name('companies.delete')->middleware('auth');
 
 
 //users

@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'JRsystem - Clientes')
+@section('title', 'JRsystem - Empresas')
 
 @section('content_header')
 <div class="row">
     <div class="col-12 d-flex justify-content-between top-internal-head">
         <div class="d-flex align-items-center">
-            <h1 class="m-0 text-dark ml-2">Clientes</h1>
+            <h1 class="m-0 text-dark ml-2">Empresas</h1>
         </div>
         <div>
-            <a class="btn btn-primary" href="{{route('customers.create')}}" role="button"><i
-                    class="fa fa-plus-circle" aria-hidden="true"></i> Criar Novo</a>
+            <a class="btn btn-primary" href="{{route('companies.create')}}" role="button"><i
+                    class="fa fa-plus-circle" aria-hidden="true"></i> Criar Nova</a>
         </div>
     </div>
 </div>
@@ -25,20 +25,19 @@
                     <div class="col-12">
                         <div class="table-responsive">
 
-                            <table id="providers-tb"
+                            <table id="companies-tb"
                                 class="celled table table-striped table-hover dt-responsive display nowrap"
                                 cellspacing="0" style="width:100%">
 
                                 {{-- Table head --}}
                                 <thead style="
-                                    background-color: #219ebc;
+                                    background-color: #023047;
                                     color: white;
                                     ">
                                     <tr>
-                                        <th>Cód</th>
                                         <th>Nome</th>
                                         <th>Telefone</th>
-                                        <th>Cidade</th>
+                                        <th>CNPJ</th>
                                         <th>Editar</th>
                                         <th>Excluir</th>
                                     </tr>
@@ -46,17 +45,16 @@
 
 
                                 <tbody>
-                                    @foreach($data as $k => $customer)
+                                    @foreach($data as $company)
                                     <tr>
-                                        <td>{{$customer->cod}}</td>
-                                        <td>{{$customer->name}}</td>
-                                        <td>{{$customer->phone}}</td>
-                                        <td>{{$customer->city}} - {{$customer->state}}</td>
+                                        <td>{{$company->name}}</td>
+                                        <td>{{$company->phone}}</td>
+                                        <td>{{$company->cnpj}}</td>
                                         <td><a class="btn btn-info rounded-circle"
-                                                href="{{route('customers.update', [$customer->id])}}"
+                                                href="{{route('companies.update', [$company->id])}}"
                                                 role="button"><i class="fas fa-pen-square"></i></a></td>
-                                        <td><a class="btn btn-danger rounded-circle delete-customer"
-                                                data-id="{{$customer->id}}" data-name="{{$customer->name}}"
+                                        <td><a class="btn btn-danger rounded-circle delete-company"
+                                                data-id="{{$company->id}}" data-name="{{$company->name}}"
                                                 role="button"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                     </tr>
                                     @endforeach
@@ -86,7 +84,7 @@
 
                                 $.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss');    //Formatação com Hora
                                 $.fn.dataTable.moment('DD/MM/YYYY');
-                                $('#providers-tb').DataTable({
+                                $('#companies-tb').DataTable({
                                     language: {
                                         url: '{{ asset("json/dataTableTranslate.json") }}'
                                     },
@@ -106,8 +104,8 @@
 
                         @push('css')
                         <style type="text/css">
-                            #providers-tb tr td,
-                            #providers-tb tr th {
+                            #companies-tb tr td,
+                            #companies-tb tr th {
                                 vertical-align: middle;
                             }
                         </style>
@@ -121,6 +119,6 @@
         </div>
     </div>
 </div>
-<x-modal-to-delete-customer />
+<x-modal-to-delete-company />
 
 @stop

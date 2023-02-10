@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\Budgets;
 use App\Models\Products;
+use App\Models\Companies;
 use App\Models\Customers;
 use App\Models\ProviderInfo;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,15 @@ class AppServiceProvider extends ServiceProvider
                 'label'       => Customers::count(),
                 'label_color' => 'light',
             ]);
+            if($isUserAdmin == 1) {
+                $event->menu->add([
+                    'text'        => 'Empresas',
+                    'url'         => 'companies',
+                    'icon'        => 'fa fa-building',
+                    'label'       => Companies::count(),
+                    'label_color' => 'dark',
+                ]);
+            }
             $event->menu->add('Orçamento');
             $event->menu->add([
                 'text'        => 'Orçamentos',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budgets;
 use App\Models\Products;
 use App\Models\Settings;
+use App\Models\Companies;
 use App\Models\Customers;
 use App\Models\BudgetsItems;
 use Illuminate\Http\Request;
@@ -166,11 +167,31 @@ class budgetsController extends Controller
 
         if($isDifferent) {
             foreach($isDifferent as $k => $info) {
+                $beforeInfo = $budget[$k];
+                $currentInfo = $info;
+                if($k == 'company_id') {
+                    $currentInfo = Companies::where('id', $info)->get('name')->first();
+                    if($currentInfo != null) {
+                        $currentInfo = $currentInfo->name;
+                    } else {
+                        $currentInfo= 'N/A';
+                    }
+                    if($budget[$k] != null) {
+                        $beforeInfo = Companies::where('id', $budget[$k])->get('name')->first();
+                        if($beforeInfo != null) {
+                            $beforeInfo = $beforeInfo->name;
+                        } else {
+                            $beforeInfo = 'N/A';
+                        }
+                    } else {
+                        $beforeInfo = 'N/A';
+                    }
+                }
                 $historic = [];
                 $historic['budget_id'] = $budgetId;
                 $historic['action'] = $action;
-                $historic['before_info'] = $budget[$k];
-                $historic['current_info'] = $info;
+                $historic['before_info'] = $beforeInfo;
+                $historic['current_info'] = $currentInfo;
                 $historic['made_by'] = Auth::user()->name;
                 BudgetHistories::create($historic);
             }
@@ -210,7 +231,9 @@ class budgetsController extends Controller
         $budget->price_in_string = $priceInString;
         $budget->totalWithoutCharacters = $priceInString;
 
-        return view('budgets.page', compact('budgetItems', 'budget'));
+        $companies =  Companies::get();
+
+        return view('budgets.page', compact('budgetItems', 'budget', 'companies'));
 
     }
 
@@ -239,7 +262,10 @@ class budgetsController extends Controller
 
         $fileName = $budget->number;
 
-        $pdf = Pdf::loadView('budgets.pdf', compact('budgetItems', 'budget', 'fileName'));
+        //get company info
+        $company = Companies::where('id', $budget->company_id)->get()->first();
+
+        $pdf = Pdf::loadView('budgets.pdf', compact('budgetItems', 'budget', 'fileName', 'company'));
 
         // (Optional) Setup the paper size and orientation
         return $pdf->setPaper('A4')->stream($fileName);

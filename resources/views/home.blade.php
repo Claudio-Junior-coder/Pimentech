@@ -101,5 +101,26 @@ $isUserAdmin = auth()->user()->type;
 
     @endif
 
+    @if($isUserAdmin == 1)
+
+    <div class="col-lg-3 col-6">
+
+        <div class="small-box p-4" style="background-color: #023047;
+        color: white;">
+            <div class="inner">
+                <h3>{{$companies}}</h3>
+                <p>Empresas</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-building"></i>
+            </div>
+            <a href="{{route('companies.index')}}" class="small-box-footer">
+                Mais info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    @endif
+
 </div>
 @stop

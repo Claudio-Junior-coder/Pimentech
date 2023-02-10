@@ -45,14 +45,13 @@
                 <tr class="items">
                     <td><img src="#" width="80px"></td>
                     <td style="padding: 0 0 10px 15px;">
-                        <h3>POLIHYDRO MATERIAIS HIDRAULICOS LTDA. </h3> <br>
-                        <span><b>END:</b> AV. SENADOR CESAR LACERDA DE VERGUEIRO, N° 123, <br>
-                        BAIRRO: JARDIM CÂNDIDA 13.603-013 - ARARAS / SP</span><br>
-                        <span><b>FONE:</b> (19) 2184 0186 / (19) 99732 6839</span><br>
-                        <span><b>CNPJ:</b> 36.957.136/0001-31</span><br>
-                        <span><b>INSC.</b> EST: 182.244.131.114</span><br>
-                        <span><b>INSC.</b> MUNIC: 40.410</span><br>
-                        <span><b>E-MAIL:</b> polihydro@hotmail.com</span>
+                        <h3>{{$company->name}} </h3> <br>
+                        <span><b>END:</b>{{$company->address}}</span><br>
+                        <span><b>FONE:</b> {{$company->phone}}</span><br>
+                        <span><b>CNPJ:</b> {{$company->cnpj}}</span><br>
+                        <span><b>INSC.</b> EST: {{$company->insc}}</span><br>
+                        <span><b>INSC.</b> MUNIC: {{$company->insc_municip}}</span><br>
+                        <span><b>E-MAIL:</b> {{$company->email}}</span>
                     </td>
                     <td>
                         <div class="ordernumber">
@@ -162,8 +161,8 @@
             ANTECIPADAMENTE.</p>
 
             <p>_______________________________</p>
-            <p style="font-size: 12px;">POLIHYDRO MATERIAIS HIDRAULICOS
-                <br> CNPJ: 36.957.136/0001-31</p>
+            <p style="font-size: 12px;">{{$company->name}}
+                <br> CNPJ: {{$company->cnpj}}</p>
     </div>
 
 </body>

@@ -23,6 +23,7 @@ class Budgets extends Model
         'time',
         'price_in_string',
         'low_stock',
+        'company_id',
         'customer_a_c',
         'customer_city',
         'customer_address_to_shipping',
