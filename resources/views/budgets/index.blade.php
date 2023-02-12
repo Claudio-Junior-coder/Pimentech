@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'JRsystem - Orçamentos')
+@section('title', 'Pimentech - Orçamentos')
 
 @section('content_header')
 <div class="row">
@@ -47,7 +47,10 @@
 
                                 <tbody>
                                     @foreach($data as $budget)
-                                    <tr>
+                                    @php
+                                    $isSelled = $budget->low_stock == 1 ? "background-color: #50a850;" : "";
+                                    @endphp
+                                    <tr style="{{$isSelled}}">
                                         <td>{{$budget->number}}</td>
                                         <td>{{$budget->customer_name}}</td>
                                         <td>{{$budget->user_name}}</td>

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'JRsystem - Orçamentos | Visualizar')
+@section('title', 'Pimentech - Orçamentos | Visualizar')
 
 @section('content_header')
 <div class="row">
@@ -8,23 +8,25 @@
         <div class="d-flex align-items-center">
             <a href="{{ route('budgets.index')}}"><i class="fa fa-chevron-circle-left" aria-hidden="true"
                     style="font-size: 30px;"></i></a>
-            <h1 class="m-0 text-dark ml-2">Orçamento - {{$budget['number']}}</h1>
+            <h1 class="m-0 text-dark ml-2">Orçamento - {{$budget['number']}} @if($budget->low_stock == 1) | <span style='color: green;'>Vendido</span> @endif</h1>
         </div>
         <div>
             @if(auth()->user()->type == 1)
-                <a href="{{ route('budgets.historic', $budget['id'])}}" class="btn btn-dark mr-2 ">Histórico</a>
+            <a href="{{ route('budgets.historic', $budget['id'])}}" class="btn btn-dark mr-2 ">Histórico</a>
             @endif
             @if($budget['low_stock'] == 0)
             <button type="button" class="btn btn-warning mr-2 low-in-stock" data-id="{{$budget['id']}}">Dar baixa no
                 estoque</button>
             @endif
+        </div>
+        <div class="mt-1">
             @if($budget['pdf_was_generated'] == 0)
                 <button type="button" class="btn btn-info generate-pdf mr-2 " data-id="{{$budget['id']}}">Gerar PDF</button>
             @else
                 <a href="{{ route('budgets.pdf', $budget['id'])}}" target="_blank" class="btn btn-primary mr-2 ">Visualizar PDF</a>
             @endif
             <button class="btn btn-success mr-2 " id="create-rev" data-id="{{$budget['id']}}">Criar revisão</button>
-            <button type="button" class="btn btn-primary" id="save-budget">Salvar alterações</a>
+            <button type="button" class="btn btn-primary" id="save-budget">Salvar</a>
         </div>
     </div>
 </div>
@@ -45,7 +47,7 @@
                                 <h5 style="color: #0069D9;">Informações da empresa</h5>
                             </div>
                             <div class="form-row mb-4">
-                                <div class="input-group col-8">
+                                <div class="input-group col-md-8">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Pela empresa: </span>
                                     </div>
@@ -63,14 +65,14 @@
                                 <h5 style="color: #0069D9;">Informações do cliente</h5>
                             </div>
                             <div class="form-row mb-2">
-                                <div class="input-group col-8">
+                                <div class="input-group col-md-8">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Cliente: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_name']}}"
                                         name="customer_name">
                                 </div>
-                                <div class="input-group col-4">
+                                <div class="input-group col-md-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Fone: </span>
                                     </div>
@@ -80,14 +82,14 @@
                             </div>
                             <input type="hidden" name="id" value="{{$budget['id']}}">
                             <div class="form-row mb-2">
-                                <div class="input-group col-8">
+                                <div class="input-group col-md-8">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Fone A/C: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['second_customer_phone']}}"
                                         name="second_customer_phone">
                                 </div>
-                                <div class="input-group col-4">
+                                <div class="input-group col-md-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">CNPJ: </span>
                                     </div>
@@ -96,21 +98,21 @@
                                 </div>
                             </div>
                             <div class="form-row mb-2">
-                                <div class="input-group col-4">
+                                <div class="input-group col-md-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Cidade: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_city']}}"
                                         name="customer_city">
                                 </div>
-                                <div class="input-group col-4">
+                                <div class="input-group col-md-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Estado: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['customer_state']}}"
                                         name="customer_state">
                                 </div>
-                                <div class="input-group col-4">
+                                <div class="input-group col-md-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">E-mail: </span>
                                     </div>
@@ -131,21 +133,21 @@
                                 <h5 style="color: #0069D9;">Informações do orçamento</h5>
                             </div>
                             <div class="form-row mb-2">
-                                <div class="input-group col-2">
+                                <div class="input-group col-md-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Nº: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['number']}}"
                                         name="number" disabled>
                                 </div>
-                                <div class="input-group col-2">
+                                <div class="input-group col-md-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Data: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['date']}}"
                                         name="date">
                                 </div>
-                                <div class="input-group col-8">
+                                <div class="input-group col-md-8">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-dark">Obs Interna: </span>
                                     </div>
@@ -155,7 +157,7 @@
                             </div>
                             @if($budget['pdf_was_generated'] == 1)
                                 <div class="form-row mb-2">
-                                    <div class="input-group col-12">
+                                    <div class="input-group col-md-12">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Aos Cuidados de: </span>
                                         </div>
@@ -164,14 +166,14 @@
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
-                                    <div class="input-group col-8">
+                                    <div class="input-group col-md-8">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Cond. Pagamento: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['condition_payment']}}"
                                             name="condition_payment">
                                     </div>
-                                    <div class="input-group col-4">
+                                    <div class="input-group col-md-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Prazo Entrega: </span>
                                         </div>
@@ -180,14 +182,14 @@
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
-                                    <div class="input-group col-8">
+                                    <div class="input-group col-md-8">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Endereço de Entrega: </span>
                                         </div>
                                         <input type="text" class="form-control" value="{{$budget['address_to_shipping']}}"
                                             name="address_to_shipping">
                                     </div>
-                                    <div class="input-group col-4">
+                                    <div class="input-group col-md-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Inspeção: </span>
                                         </div>
@@ -196,7 +198,7 @@
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
-                                    <div class="input-group col-12">
+                                    <div class="input-group col-md-12">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Valor total por escrito: </span>
                                         </div>
@@ -206,14 +208,14 @@
                                 </div>
                             @endif
                             <div class="form-row mb-3">
-                                <div class="input-group col">
+                                <div class="input-group col-md-6">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success">Total do pedido: </span>
                                     </div>
                                     <input type="text" class="form-control" value="{{$budget['total']}}" disabled>
                                 </div>
                                 @if(auth()->user()->type == 1)
-                                    <div class="input-group col">
+                                    <div class="input-group col-md-6">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-dark">Responsável: </span>
                                         </div>

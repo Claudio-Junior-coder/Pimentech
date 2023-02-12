@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'JRsystem - Definições | Sistema')
+@section('title', 'Pimentech - Definições | Sistema')
 
 @section('content_header')
 <div class="row">

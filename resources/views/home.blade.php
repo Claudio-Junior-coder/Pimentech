@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'JRsystem')
+@section('title', 'Pimentech')
 
 @section('content_header')
 <h1 class="m-0 text-dark">Painel de controle</h1>

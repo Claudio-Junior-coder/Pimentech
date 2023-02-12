@@ -15,7 +15,7 @@
     {{-- Title --}}
     <title>
         @yield('title_prefix', config('adminlte.title_prefix', ''))
-        @yield('title', config('adminlte.title', 'JRsystem'))
+        @yield('title', config('adminlte.title', 'Pimentech'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
 

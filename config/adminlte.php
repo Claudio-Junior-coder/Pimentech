@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'JRsystem',
+    'title' => 'pimentech',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>JR</b>system',
-    'logo_img' => 'images/jr.png',
+    'logo' => '<b>P</b>imentech',
+    'logo_img' => 'images/pimentech.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'images/jr.png',
+            'path' => 'images/pimentech.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,8 +109,8 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'images/jr.png',
-            'alt' => 'JRsystem Preloader Image',
+            'path' => 'images/pimentech.png',
+            'alt' => 'Pimentech Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,

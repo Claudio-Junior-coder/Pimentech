@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'JRsystem - Produtos | Editar')
+@section('title', 'Pimentech - Produtos | Editar')
 
 @section('content_header')
 <div class="row">
@@ -34,12 +34,12 @@
                                 <h5 style="color: #0069D9;">Controle interno</h5>
                             </div>
                             <div class="form-row w-100 mb-3">
-                                <div class="form-group col-2">
+                                <div class="form-group col-md-2">
                                     <label>Código</label>
                                     <input type="text" name="cod" value="{{ $data['cod'] }}"
                                     class="form-control" placeholder="Código" autocomplete="off">
                                 </div>
-                                <div class="form-group col-2">
+                                <div class="form-group col-md-2">
                                     <label>Stock minimo</label>
                                     <input type="text" name="min_stock" value="@if($data['min_stock'] != '9999'){{ $data['min_stock'] }}@endif"
                                     class="form-control" placeholder="Informe o stock minimo" autocomplete="off">

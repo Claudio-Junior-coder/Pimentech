@@ -41,7 +41,7 @@
                 @endif
 
                 {{-- Logo Label --}}
-                {!! config('adminlte.logo', '<b>New</b>JR') !!}
+                {!! config('adminlte.logo', '<b>P</b>imentech') !!}
 
             </a>
         </div>
