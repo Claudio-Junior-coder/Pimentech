@@ -37,6 +37,7 @@
                         <input class="form-control" name="address_to_shipping" id="address_to_shipping" placeholder="Endereço de entrega">
                     </div>
                 </div>
+                <input type="hidden" name="id_company">
                 <div class="form-row w-100">
                     <div class="form-group col-md-12">
                         <label for="price_in_string">DESCREVER VALOR TOTAL:</label>
@@ -61,6 +62,7 @@
                 $('body').on('click', '.generate-pdf', function (e) {
                     let idBudget = $(this).data('id');
                     $('#id-budget').val(idBudget);
+                    $('[name="id_company"]').val($('[name="company_id"]').val())
                     $('#confirmToGeneratePDF').modal('show');
                 })
             });

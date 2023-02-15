@@ -9,21 +9,15 @@ class companiesController extends Controller
 {
     //
     public function index () {
-        $data = Companies::where('draft', 0)->get();
+        $data = Companies::get();
         return view('companies.index', compact('data'));
     }
 
     public function create (Request $request) {
 
-        $provider = Companies::where('draft', 1)->first();
+        $id = Companies::create(['name' => 'Nome não informado.'])->id;
 
-        if($provider == null || empty($provider)) {
-            $id = Companies::create(['name' => 'Nome não informado.', 'draft' => 1])->id;
-
-            return redirect()->route('companies.update', ['id' => $id]);
-        }
-
-        return redirect()->route('companies.update', ['id' => $provider->id]);
+        return redirect()->route('companies.update', ['id' => $id]);
 
     }
 
@@ -53,7 +47,7 @@ class companiesController extends Controller
     }
 
     public function listing () {
-        $data = Companies::where('draft', 0)->get();
+        $data = Companies::get();
         return $data;
     }
 

@@ -57,7 +57,6 @@
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
-                            <input type="hidden" name="draft" value="0">
                             <div class="form-row mb-3">
                                 <div class="form-group col-md-6">
                                     <label for="address_to_shipping">Endereço</label>

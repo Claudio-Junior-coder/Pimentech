@@ -19,7 +19,6 @@ class Products extends Model
         'quantity',
         'price',
         'weight',
-        'draft',
         'cod',
         'min_stock',
         'created_at',

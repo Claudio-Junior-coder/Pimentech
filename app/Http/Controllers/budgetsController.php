@@ -242,6 +242,9 @@ class budgetsController extends Controller
         $data = $request->all();
         unset($data['_token']);
 
+        $data['company_id'] = $data['id_company'];
+        unset($data['id_company']);
+
         $data['pdf_was_generated'] = 1;
 
         //create historic

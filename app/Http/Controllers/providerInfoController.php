@@ -9,21 +9,15 @@ class providerInfoController extends Controller
 {
     //
     public function index () {
-        $data = ProviderInfo::where('draft', 0)->get();
+        $data = ProviderInfo::get();
         return view('providers.index', compact('data'));
     }
 
     public function create (Request $request) {
 
-        $provider = ProviderInfo::where('draft', 1)->first();
+        $id = ProviderInfo::create(['name' => 'Nome não informado.'])->id;
 
-        if($provider == null || empty($provider)) {
-            $id = ProviderInfo::create(['name' => 'Nome não informado.', 'draft' => 1])->id;
-
-            return redirect()->route('provider.info.update', ['id' => $id]);
-        }
-
-        return redirect()->route('provider.info.update', ['id' => $provider->id]);
+        return redirect()->route('provider.info.update', ['id' => $id]);
 
     }
 
@@ -53,7 +47,7 @@ class providerInfoController extends Controller
     }
 
     public function listing () {
-        $data = ProviderInfo::where('draft', 0)->get();
+        $data = ProviderInfo::get();
         return $data;
     }
 

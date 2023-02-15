@@ -15,21 +15,15 @@ class productsController extends Controller
     }
 
     public function index () {
-        $data = Products::where('draft', 0)->get();
+        $data = Products::get();
         return view('products.index', compact('data'));
     }
 
     public function create (Request $request) {
 
-        $product = Products::where('draft', 1)->first();
+        $id = Products::create(['name' => 'Descritivo não informado.'])->id;
 
-        if($product == null || empty($product)) {
-            $id = Products::create(['name' => 'Descritivo não informado.', 'draft' => 1])->id;
-
-            return redirect()->route('products.update', ['id' => $id]);
-        }
-
-        return redirect()->route('products.update', ['id' => $product->id]);
+        return redirect()->route('products.update', ['id' => $id]);
 
     }
 
@@ -85,10 +79,11 @@ class productsController extends Controller
         $data = $request->all();
 
         if($data['token'] == $this->token) {
-            $products = Products::where('draft', 0)->where('quantity', '<=', 'min_stock')->where('min_stock', '!=', 9999)->get();
+            $products = Products::where('quantity', '<=', 'min_stock')->where('min_stock', '!=', '0')->get();
 
             if($products != null) {
-                mailController::sendMail(compact('products'), 'mail-layouts/min-stock', env('MAIL_CLIENT'), env('MAIL_CLIENT_USERNAME'), 'Alerta de stock');
+                $settings = Settings::get();
+                mailController::sendMail(compact('products'), 'mail-layouts/min-stock', $settings->company_email, $settings->company_name, 'Alerta de stock');
                 return json_encode(["success" => true, "message" => "E-mail sended with success!"]);
             }
 

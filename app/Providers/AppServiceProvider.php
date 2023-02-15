@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
                 'text'        => 'Produtos',
                 'url'         => 'products',
                 'icon'        => 'fa fa-cubes',
-                'label'       => Products::where('draft', 0)->count(),
+                'label'       => Products::count(),
                 'label_color' => 'primary',
             ]);
             if(PROVIDERS_MODULE) {
@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
                     'text'        => 'Fornecedores',
                     'url'         => 'providers-info',
                     'icon'        => 'fa fa-shopping-basket',
-                    'label'       => ProviderInfo::where('draft', 0)->count(),
+                    'label'       => ProviderInfo::count(),
                     'label_color' => 'warning',
                 ]);
             }

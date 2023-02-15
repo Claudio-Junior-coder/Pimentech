@@ -51,7 +51,6 @@
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
-                            <input type="hidden" name="draft" value="0">
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="email">E-mail</label>

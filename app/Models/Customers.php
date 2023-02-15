@@ -17,7 +17,6 @@ class Customers extends Model
         'cnpj',
         'email',
         'state',
-        'draft',
         'cod',
         'created_at',
         'updated_at',

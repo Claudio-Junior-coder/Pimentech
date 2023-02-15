@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Stock minimo</label>
-                                    <input type="text" name="min_stock" value="@if($data['min_stock'] != '9999'){{ $data['min_stock'] }}@endif"
+                                    <input type="text" name="min_stock" value="@if($data['min_stock'] != '0'){{ $data['min_stock'] }}@endif"
                                     class="form-control" placeholder="Informe o stock minimo" autocomplete="off">
                                 </div>
                             </div>
@@ -125,7 +125,6 @@
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
-                            <input type="hidden" name="draft" value="0">
                         </form>
                     </div>
                 </div>

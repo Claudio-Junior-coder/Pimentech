@@ -31,7 +31,6 @@
                         <form action="{{ route('companies.edit')}}" method="POST" id="company-form">
                             @csrf
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
-                            <input type="hidden" name="draft" value="0">
 
                             <div class="form-row mb-3 d-flex flex-column">
                                 <h5 style="color: #0069D9; margin-bottom: 0px;">Informações da sua empresa</h5>
@@ -44,6 +43,13 @@
                                         placeholder="Nome da empresa / razão social" value="@if(isset($data['name'])) {{ $data['name'] }} @endif">
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Endereço de e-mail" value="@if(isset($data['email'])) {{ $data['email'] }} @endif">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
                                     <label for="address">Endereço</label>
                                     <input type="address" class="form-control" name="address" id="address"
                                         placeholder="Endereço completo" value="@if(isset($data['address'])) {{ $data['address'] }} @endif">

@@ -50,7 +50,7 @@ class settingsController extends Controller
             if(isset($data['report'])) {
                 switch ($data['report']) {
                     case "stock_cost":
-                        $products = Products::where('draft', 0)->get(['id', 'name', 'quantity']);
+                        $products = Products::get(['id', 'name', 'quantity']);
                         if($products != null) {
                             foreach($products as $k => $product) {
                                 $items['title'] = 'Custo do stock';

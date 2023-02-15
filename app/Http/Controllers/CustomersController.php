@@ -10,22 +10,15 @@ class CustomersController extends Controller
     //
 
     public function index () {
-        $data = Customers::where('draft', 0)->get();
+        $data = Customers::get();
         return view('customers.index', compact('data'));
     }
 
     public function create (Request $request) {
 
-        $provider = Customers::where('draft', 1)->first();
+        $id = Customers::create(['name' => 'Nome não informado.'])->id;
 
-        if($provider == null || empty($provider)) {
-            $id = Customers::create(['name' => 'Nome não informado.', 'draft' => 1])->id;
-
-            return redirect()->route('customers.update', ['id' => $id]);
-        }
-
-        return redirect()->route('customers.update', ['id' => $provider->id]);
-
+        return redirect()->route('customers.update', ['id' => $id]);
 
     }
 
@@ -55,7 +48,7 @@ class CustomersController extends Controller
     }
 
     public function listing () {
-        $data = Customers::where('draft', 0)->get();
+        $data = Customers::get();
         return $data;
     }
 
@@ -74,11 +67,9 @@ class CustomersController extends Controller
     public function search () {
         $customers = Customers::where(
             [
-                ['draft', '=', '0'],
                 ['name', 'LIKE', '%'. $_GET['search'] .'%']
             ]
         )->orWhere([
-            ['draft', '=', '0'],
             ['cod', 'LIKE', '%'. $_GET['search'] .'%']
         ])->get();
 

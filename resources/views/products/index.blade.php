@@ -48,7 +48,7 @@
                                     @foreach($data as $product)
                                     @php
                                         $stockVar = "";
-                                        if($product->min_stock != 9999) {
+                                        if($product->min_stock != 0) {
                                             $stockVar = $product->quantity <= $product->min_stock ? 'color: #C82333;' : "";
                                         }
                                     @endphp

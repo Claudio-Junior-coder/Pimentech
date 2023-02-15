@@ -11,25 +11,18 @@ class usersController extends Controller
 {
     //
     public function index () {
-        $data = User::where('draft', 0)->get();
+        $data = User::get();
         return view('users.index', compact('data'));
     }
 
     public function create (Request $request) {
         if(auth()->user()->type == 1) {
-            $user = User::where('draft', 1)->first();
-
-            if($user == null || empty($user)) {
-                $id = User::create(['name' => 'Nome não informado.',
+            $id = User::create(['name' => 'Nome não informado.',
                 'email' => 'exemplo@claudiopimentel.com',
                 'password' => Hash::make('NewJunior@2000???'),
-                'draft' => 1,
                 'type' => 0])->id;
 
-                return redirect()->route('user.update', ['id' => $id]);
-            }
-
-            return redirect()->route('user.update', ['id' => $user->id]);
+            return redirect()->route('user.update', ['id' => $id]);
         } else {
             return abort(404);
         }
@@ -86,7 +79,7 @@ class usersController extends Controller
     }
 
     public function listing () {
-        $data = User::where('draft', 0)->get();
+        $data = User::get();
         return $data;
     }
 

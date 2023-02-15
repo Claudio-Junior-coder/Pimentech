@@ -29,8 +29,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Products::where('draft', 0)->count();
-        $providers = ProviderInfo::where('draft', 0)->count();
+        $products = Products::count();
+        $providers = ProviderInfo::count();
         $budgets = Budgets::count();
         $users = User::count();
         $customers = Customers::count();

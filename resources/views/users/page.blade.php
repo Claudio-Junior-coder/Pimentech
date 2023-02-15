@@ -65,7 +65,6 @@
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
-                            <input type="hidden" name="draft" value="0">
                         </form>
                     </div>
                 </div>

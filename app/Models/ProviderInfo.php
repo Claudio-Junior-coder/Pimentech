@@ -17,7 +17,6 @@ class ProviderInfo extends Model
         'telephone',
         'telephone_two',
         'description',
-        'draft',
         'add_number',
         'cep',
         'zone',
