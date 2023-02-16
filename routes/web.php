@@ -50,6 +50,7 @@ Route::post('/products/edit', [productsController::class, 'edit'])->name('produc
 
 Route::post('/products/delete', [productsController::class, 'delete'])->name('products.delete')->middleware('auth');
 
+Route::post('/products/import', [productsController::class, 'import'])->name('products.import')->middleware('auth');
 
 Route::get('/products/check/min-stock', [productsController::class, 'checkMinStock'])->name('products.check.min.stock')->middleware('auth');
 
@@ -61,6 +62,7 @@ Route::post('/sbr/delete', [sbrController::class, 'delete'])->name('sbr.delete')
 Route::post('/sbr/edit', [sbrController::class, 'edit'])->name('sbr.edit')->middleware('auth');
 
 Route::get('/sbr/get/by/product/{id}', [sbrController::class, 'getByProduct'])->name('sbr.get.by.product')->middleware('auth');
+
 
 //fornecedores
 Route::get('/providers-info', [providerInfoController::class, 'index'])->name('provider.info.index')->middleware('auth');
@@ -149,4 +151,6 @@ Route::get('/customers/update/{id}', [CustomersController::class, 'update'])->na
 Route::post('/customers/edit', [CustomersController::class, 'edit'])->name('customers.edit')->middleware('auth');
 
 Route::post('/customers/delete', [CustomersController::class, 'delete'])->name('customers.delete')->middleware('auth');
+
+Route::post('/customers/import', [CustomersController::class, 'import'])->name('customers.import')->middleware('auth');
 

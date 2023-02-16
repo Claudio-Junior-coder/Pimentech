@@ -64,7 +64,7 @@
                                     <select id="um" name="um" class="form-control">
                                         @php
                                             $BR = $data['um'] == "BR" ? "selected" : "";
-                                            $PC = $data['um'] == "PC" ? "selected" : "";
+                                            $PC = $data['um'] == "PÇ" ? "selected" : "";
                                             $MT = $data['um'] == "MT" ? "selected" : "";
                                             $RL = $data['um'] == "RL" ? "selected" : "";
                                             $CJ = $data['um'] == "CJ" ? "selected" : "";

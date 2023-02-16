@@ -8,6 +8,14 @@
         <div class="d-flex align-items-center">
             <h1 class="m-0 text-dark ml-2">Clientes</h1>
         </div>
+        <!-- IMPORTAR CLIENTES
+            <div>
+            <form id="sendFile">
+                <input class="form-control" id="file_input" name="file_input" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                <br>
+                <input class="form-control btn btn-primary" id="btn-text" type="submit" value="Importar">
+            </form>
+        </div> -->
         <div>
             <a class="btn btn-primary" href="{{route('customers.create')}}" role="button"><i
                     class="fa fa-plus-circle" aria-hidden="true"></i> Criar Novo</a>
@@ -98,6 +106,32 @@
                                 setTimeout(function () {
                                     $('input[type="search"]').attr("placeholder", "Digite aqui para pesquisar...");
                                 }, 1500)
+
+                                $('#sendFile').submit(function (e) {
+                                    e.preventDefault();
+
+                                    var data = new FormData(this);
+                                    $.ajax({
+                                        url: "/customers/import",
+                                        type: "POST",
+                                        data: data,
+                                        dataType: "json",
+                                        contentType: false,
+                                        processData: false,
+                                        success: function(response) {
+                                            if (!response.success) {
+                                                alert('Erro!');
+
+                                                // Não deixar a função executar mais
+                                                return;
+                                            }
+                                            alert('Importado com sucesso!');
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            console.log(textStatus, errorThrown);
+                                        }
+                                    });
+                                })
 
                             })
 

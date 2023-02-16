@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Sbr;
 use App\Models\Products;
+use App\Models\Settings;
+use App\Imports\ImportProducts;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\mailController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -82,7 +85,7 @@ class productsController extends Controller
             $products = Products::where('quantity', '<=', 'min_stock')->where('min_stock', '!=', '0')->get();
 
             if($products != null) {
-                $settings = Settings::get();
+                $settings = Settings::get()->first();
                 mailController::sendMail(compact('products'), 'mail-layouts/min-stock', $settings->company_email, $settings->company_name, 'Alerta de stock');
                 return json_encode(["success" => true, "message" => "E-mail sended with success!"]);
             }
@@ -93,4 +96,9 @@ class productsController extends Controller
         return json_encode(["success" => false, "message" => "Token code is wrong."]);
     }
 
+    public function import (Request $request) {
+        Excel::import(new ImportProducts,
+                      $request->file('file_input')->store('files'));
+        return redirect()->back();
+    }
 }

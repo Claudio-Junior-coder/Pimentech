@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Customers;
 use Illuminate\Http\Request;
+use App\Imports\ImportCustomers;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomersController extends Controller
 {
@@ -74,5 +76,11 @@ class CustomersController extends Controller
         ])->get();
 
         return $customers;
+    }
+
+    public function import (Request $request) {
+        Excel::import(new ImportCustomers,
+                      $request->file('file_input')->store('files'));
+        return redirect()->back();
     }
 }

@@ -40,15 +40,15 @@
     color: #FFFFFF;
 }
 
-.dataTables_paginate  .current{
+.dataTables_paginate .paginate_button  {
     border-radius: 100% !important;
-    background-color: #0A75D9 !important;
+    background-color: #d1e2fe !important;
     border-color: #FFFFFF !important;
+    color: #FFFFFF !important;
 }
 
-
-.dataTables_paginate  span {
-    color: #FFFFFF !important;
+.dataTables_paginate  .current{
+    background-color: #004d96 !important;
 }
 
 .table-responsive input,
